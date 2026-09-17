@@ -1,0 +1,24 @@
+# BasicUploadSchemaFlow
+
+main: kit: flow: BasicUploadSchemaFlow:
+{
+  entity: "upload_schema",
+  kind: "basic",
+  name: "BasicUploadSchemaFlow",
+  step: [
+    {
+      input: {
+        ref: "upload_schema_ref01"
+      }
+
+      match: {
+        entity_type: "entity_type01",
+        name: "name01",
+        project_id: "project01"
+      }
+
+      op: "create"
+    }
+  ],
+  "key$": "BasicUploadSchemaFlow"
+}

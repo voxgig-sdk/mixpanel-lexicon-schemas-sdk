@@ -1,0 +1,22 @@
+# BasicBatchUploadSchemaFlow
+
+main: kit: flow: BasicBatchUploadSchemaFlow:
+{
+  entity: "batch_upload_schema",
+  kind: "basic",
+  name: "BasicBatchUploadSchemaFlow",
+  step: [
+    {
+      input: {
+        ref: "batch_upload_schema_ref01"
+      }
+
+      match: {
+        project_id: "project01"
+      }
+
+      op: "create"
+    }
+  ],
+  "key$": "BasicBatchUploadSchemaFlow"
+}

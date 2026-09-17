@@ -1,0 +1,320 @@
+{
+  "existing": {
+    "upload_schema": {
+      "UPLOAD_SCHEMA00": {
+        "description": "s28",
+        "metadata": {},
+        "properties": {},
+        "status": "s2b",
+        "entity_type": "ENTITY_TYPE01",
+        "name": "NAME01",
+        "project_id": "PROJECT01",
+        "id": "UPLOAD_SCHEMA00"
+      },
+      "UPLOAD_SCHEMA01": {
+        "description": "s50",
+        "metadata": {},
+        "properties": {},
+        "status": "s53",
+        "entity_type": "ENTITY_TYPE01",
+        "name": "NAME01",
+        "project_id": "PROJECT01",
+        "id": "UPLOAD_SCHEMA01"
+      },
+      "UPLOAD_SCHEMA02": {
+        "description": "s78",
+        "metadata": {},
+        "properties": {},
+        "status": "s7b",
+        "entity_type": "ENTITY_TYPE01",
+        "name": "NAME01",
+        "project_id": "PROJECT01",
+        "id": "UPLOAD_SCHEMA02"
+      }
+    }
+  },
+  "new": {
+    "upload_schema": {
+      "upload_schema_ref01": {
+        "description": "sa0",
+        "metadata": {},
+        "properties": {},
+        "status": "sa3"
+      }
+    }
+  },
+  "requests": {
+    "POST /projects/{projectId}/schemas/{entityType}/{name}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "upload-schema-by-entity-and-name",
+        "parameters": [
+          {
+            "description": "Your project id (eg: 12345)",
+            "in": "path",
+            "name": "projectId",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "The entity type (eg: event)",
+            "in": "path",
+            "name": "entityType",
+            "required": true,
+            "schema": {
+              "enum": [
+                "event",
+                "profile"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "The entity name (eg: Added To Cart)",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "The schema for the entity",
+                "properties": {
+                  "description": {
+                    "description": "The entity description",
+                    "type": "string"
+                  },
+                  "metadata": {
+                    "properties": {
+                      "com.mixpanel": {
+                        "additionalProperties": false,
+                        "description": "Metadata about this entity that is specific to Mixpanel",
+                        "properties": {
+                          "$source": {
+                            "description": "The source of this schema. Used by partners to identify themselves",
+                            "type": "string"
+                          },
+                          "contacts": {
+                            "description": "A list of emails belonging to users responsible for this entity.",
+                            "items": {
+                              "additionalProperties": false,
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "displayName": {
+                            "description": "If set, this name will be used in the Mixpanel UI instead of the entity name",
+                            "type": "string"
+                          },
+                          "dropped": {
+                            "default": false,
+                            "description": "[Events only] If true, the event will be dropped at ingestion time.",
+                            "type": "boolean"
+                          },
+                          "hidden": {
+                            "default": false,
+                            "description": "If true, this entity will be hidden in the Mixpanel UI",
+                            "type": "boolean"
+                          },
+                          "tags": {
+                            "description": "A list of tags to associate to this entity that can be used in the Mixpanel UI for filtering",
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "teamContacts": {
+                            "description": "A list of team names responsible for this entity.",
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "type": "object"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "properties": {
+                    "additionalProperties": {
+                      "additionalProperties": false,
+                      "description": "The name and definition for a property. E.g. \"item_id\"",
+                      "properties": {
+                        "description": {
+                          "description": "The property description",
+                          "type": "string"
+                        },
+                        "metadata": {
+                          "properties": {
+                            "com.mixpanel": {
+                              "additionalProperties": false,
+                              "description": "Metadata that is specific to Mixpanel",
+                              "properties": {
+                                "displayName": {
+                                  "description": "If set, this name will be used in the Mixpanel UI instead of the entity name",
+                                  "type": "string"
+                                },
+                                "dropped": {
+                                  "default": false,
+                                  "description": "[Events only] If true, the property will be dropped at ingestion time.",
+                                  "type": "boolean"
+                                },
+                                "hidden": {
+                                  "default": false,
+                                  "description": "If true, this property will be hidden in the Mixpanel UI",
+                                  "type": "boolean"
+                                }
+                              },
+                              "type": "object"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "type": {
+                          "enum": [
+                            "array",
+                            "boolean",
+                            "integer",
+                            "null",
+                            "number",
+                            "object",
+                            "string"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "description": "The list of properties that should be included on an instance of this entity",
+                    "type": "object"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "status": {
+                      "enum": [
+                        "ok"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "description": "Details about the error that occurred",
+                      "type": "string"
+                    },
+                    "status": {
+                      "enum": [
+                        "error"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "description": "Details about the error that occurred",
+                      "type": "string"
+                    },
+                    "status": {
+                      "enum": [
+                        "error"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "description": "Details about the error that occurred",
+                      "type": "string"
+                    },
+                    "status": {
+                      "enum": [
+                        "error"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "ServiceAccount": []
+          }
+        ],
+        "securitySchemes": {
+          "OAuthToken": {
+            "description": "OAuth Token",
+            "scheme": "bearer",
+            "type": "http"
+          },
+          "ProjectSecret": {
+            "description": "Project Secret",
+            "scheme": "basic",
+            "type": "http"
+          },
+          "ServiceAccount": {
+            "description": "Service Account",
+            "scheme": "basic",
+            "type": "http"
+          }
+        },
+        "securitySource": "definition"
+      }
+    }
+  }
+}

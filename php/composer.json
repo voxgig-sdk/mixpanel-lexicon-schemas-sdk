@@ -1,0 +1,29 @@
+{
+  "name": "voxgig-sdk/mixpanel-lexicon-schemas",
+  "description": "Unofficial generated PHP SDK for the Lexicon Schemas public API. Not affiliated with or endorsed by the upstream API provider.",
+  "type": "library",
+  "keywords": ["voxgig", "sdk", "generated-sdk", "openapi", "api-client", "mixpanel-lexicon-schemas"],
+  "homepage": "https://github.com/voxgig-sdk/mixpanel-lexicon-schemas-sdk",
+  "license": "MIT",
+  "authors": [
+    { "name": "Voxgig", "homepage": "https://voxgig.com" }
+  ],
+  "support": {
+    "issues": "https://github.com/voxgig-sdk/mixpanel-lexicon-schemas-sdk/issues",
+    "source": "https://github.com/voxgig-sdk/mixpanel-lexicon-schemas-sdk"
+  },
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=8.2"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^11.0"
+  },
+  "autoload": {
+    "files": ["mixpanellexiconschemas_sdk.php"],
+    "classmap": ["core/", "entity/", "feature/", "types/", "utility/", "config.php", "schema.php", "features.php"]
+  },
+  "autoload-dev": {
+    "classmap": ["test/"]
+  }
+}

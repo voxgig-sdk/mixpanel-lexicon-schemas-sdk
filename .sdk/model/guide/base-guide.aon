@@ -1,0 +1,57 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 4
+  metrics: count: path: 3
+  metrics: count: method: 8
+
+  entity: batch_upload_schema: {
+    path: "/projects/{projectId}/schemas": {
+      rename: param: "projectId": *"project_id"
+      op: create: method: *POST
+      op: create: transform: res: *("`body.results`")|top
+      op: create: transform: req: "entries": *("`reqdata.entry`")|top
+      op: create: transform: req: "truncate": *("`reqdata.truncate`")|top
+    }
+  }
+
+  entity: project: {
+    path: "/projects/{projectId}/schemas": {
+      action: "schema": {}
+      rename: param: "projectId": *"id"
+    }
+  }
+
+  entity: schema: {
+    path: "/projects/{projectId}/schemas": {
+      rename: param: "projectId": *"project_id"
+      op: list: method: *GET
+      op: list: transform: res: *("`body.results`")|top
+      op: remove: method: *DELETE
+      op: remove: transform: res: *("`body.results`")|top
+    }
+    path: "/projects/{projectId}/schemas/{entityType}": {
+      rename: param: "entityType": *"id"
+      rename: param: "projectId": *"project_id"
+      op: load: method: *GET
+      op: remove: method: *DELETE
+      op: remove: transform: res: *("`body.results`")|top
+    }
+    path: "/projects/{projectId}/schemas/{entityType}/{name}": {
+      rename: param: "entityType": *"entity_type"
+      rename: param: "projectId": *"project_id"
+      op: load: method: *GET
+      op: remove: method: *DELETE
+      op: remove: transform: res: *("`body.results`")|top
+    }
+  }
+
+  entity: upload_schema: {
+    path: "/projects/{projectId}/schemas/{entityType}/{name}": {
+      rename: param: "entityType": *"entity_type"
+      rename: param: "projectId": *"project_id"
+      op: create: method: *POST
+    }
+  }
+
+}

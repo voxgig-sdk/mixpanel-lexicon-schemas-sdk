@@ -1,0 +1,50 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      contact: {
+        url: "https://mixpanel.com/get-support"
+      }
+      description: "Use schemas to sync your data dictionary with Mixpanel. Schemas can be used to populate Lexicon and provide additional context for your data."
+      license: {
+        name: "MIT"
+        url: "https://opensource.org/licenses/MIT"
+      }
+      security: {
+        in: "header"
+        name: "Authorization"
+        prefix: "Basic"
+        scheme: "ServiceAccount"
+        type: "http"
+      }
+      servers: [
+        {
+          description: "Mixpanel's application API server."
+          url: "https://{regionAndDomain}.com/api/app"
+          variables: {
+            regionAndDomain: {
+              default: "mixpanel"
+              description: `The server location to be used:
+* \`mixpanel\` - The default (US) servers used for most projects
+* \`eu.mixpanel\` - EU servers if you are enrolled in EU Data Residency
+* \`in.mixpanel\` - India servers if you are enrolled in India Data Residency
+`
+              enum: [
+                "mixpanel"
+                "eu.mixpanel"
+                "in.mixpanel"
+              ]
+            }
+          }
+        }
+      ]
+      summary: "Use schemas to sync your data dictionary with Mixpanel."
+      title: "Lexicon Schemas API"
+      version: "1.0.0"
+      website: "https://mixpanel.com/get-support"
+    }
+  }
+}
+

@@ -1,1 +1,2491 @@
-{"name":"mixpanel-lexicon-schemas"}
+{
+  "NAME": "MIXPANEL-LEXICON-SCHEMAS",
+  "Name": "MixpanelLexiconSchemas",
+  "def": "mixpanel-lexicon-schemas-openapi.yaml",
+  "main": {
+    "api": {
+      "entity": {},
+      "guide": {}
+    },
+    "custom": {
+      "plurals": {}
+    },
+    "def": {
+      "desc": ""
+    },
+    "kit": {
+      "author": {
+        "name": "",
+        "url": ""
+      },
+      "config": {
+        "docs_order": [
+          "ts",
+          "py",
+          "php",
+          "go",
+          "rb",
+          "lua"
+        ],
+        "headers": {
+          "content-type": "application/json"
+        },
+        "repr": "auto"
+      },
+      "contributor": {},
+      "doc": {
+        "active": true,
+        "assets": {
+          "path": ".sdk/doc/assets"
+        },
+        "brand": {
+          "label": "",
+          "notice": "",
+          "shortNotice": "",
+          "url": ""
+        },
+        "ci": {
+          "active": true,
+          "branch": "main"
+        },
+        "content": {
+          "path": ".sdk/doc/content"
+        },
+        "edition": {
+          "github-pages": {
+            "active": true,
+            "base": "node_modules/@voxgig/docgen/project/.sdk",
+            "brand": {},
+            "filter": {
+              "entities": [],
+              "features": [],
+              "targets": []
+            },
+            "kind": "github-pages",
+            "name": "github-pages",
+            "origname": "",
+            "output": {
+              "path": "docs"
+            },
+            "package": "@voxgig/docgen",
+            "site": {
+              "active": true
+            },
+            "style": {},
+            "title": ""
+          },
+          "summary": {
+            "active": true,
+            "base": "node_modules/@voxgig/docgen/project/.sdk",
+            "brand": {},
+            "filter": {
+              "entities": [],
+              "features": [],
+              "targets": []
+            },
+            "kind": "summary",
+            "name": "summary",
+            "origname": "",
+            "output": {
+              "path": "SUMMARY.md"
+            },
+            "package": "@voxgig/docgen",
+            "site": {
+              "active": true
+            },
+            "style": {},
+            "title": ""
+          }
+        },
+        "qa": {
+          "vocabulary": []
+        },
+        "style": {
+          "color": {
+            "accent": "#00c6d8",
+            "background": "#f5f5f9",
+            "darkBackground": "#0f1117",
+            "darkText": "#e6edf3",
+            "primary": "#e70042",
+            "text": "#0a0a0a"
+          },
+          "font": "Nunito, system-ui, sans-serif",
+          "fontFile": "",
+          "headingFont": "Nunito, system-ui, sans-serif",
+          "headingFontFile": "",
+          "logo": "",
+          "mode": "light",
+          "mono": "ui-monospace, monospace",
+          "monoFile": ""
+        },
+        "target": {}
+      },
+      "entity": {
+        "batch_upload_schema": {
+          "active": true,
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "active": true,
+              "name": "added",
+              "req": false,
+              "short": "The number of entries that were inserted",
+              "type": "`$INTEGER`"
+            },
+            {
+              "active": true,
+              "name": "deleted",
+              "req": false,
+              "short": "The number of entries that were deleted (on applicable if `truncate: true`)",
+              "type": "`$INTEGER`"
+            },
+            {
+              "active": true,
+              "name": "entries",
+              "req": true,
+              "short": "The list of schema entries to upload",
+              "type": "`$ARRAY`"
+            },
+            {
+              "active": true,
+              "name": "truncate",
+              "req": false,
+              "short": "If true, delete your entire data dictionary before inserting these entries.",
+              "type": "`$BOOLEAN`"
+            }
+          ],
+          "name": "batch_upload_schema",
+          "op": {
+            "create": {
+              "input": "data",
+              "name": "create",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "project_id",
+                        "orig": "project_id",
+                        "reqd": true,
+                        "type": "`$INTEGER`"
+                      }
+                    ]
+                  },
+                  "contract": {
+                    "id": "POST /projects/{projectId}/schemas",
+                    "json": "{\"operationId\":\"upload-schemas-for-project\",\"parameters\":[{\"description\":\"Your project id (eg: 12345)\",\"in\":\"path\",\"name\":\"projectId\",\"required\":true,\"schema\":{\"type\":\"integer\"}}],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"entries\":{\"description\":\"The list of schema entries to upload\",\"items\":{\"additionalProperties\":false,\"properties\":{\"entityType\":{\"enum\":[\"event\",\"profile\"],\"type\":\"string\"},\"name\":{\"description\":\"The entity name (eg: Added To Cart)\",\"type\":\"string\"},\"schemaJson\":{\"description\":\"The schema for the entity\",\"properties\":{\"description\":{\"description\":\"The entity description\",\"type\":\"string\"},\"metadata\":{\"properties\":{\"com.mixpanel\":{\"additionalProperties\":false,\"description\":\"Metadata about this entity that is specific to Mixpanel\",\"properties\":{\"$source\":{\"description\":\"The source of this schema. Used by partners to identify themselves\",\"type\":\"string\"},\"contacts\":{\"description\":\"A list of emails belonging to users responsible for this entity.\",\"items\":{\"additionalProperties\":false,\"type\":\"string\"},\"type\":\"array\"},\"displayName\":{\"description\":\"If set, this name will be used in the Mixpanel UI instead of the entity name\",\"type\":\"string\"},\"dropped\":{\"default\":false,\"description\":\"[Events only] If true, the event will be dropped at ingestion time.\",\"type\":\"boolean\"},\"hidden\":{\"default\":false,\"description\":\"If true, this entity will be hidden in the Mixpanel UI\",\"type\":\"boolean\"},\"tags\":{\"description\":\"A list of tags to associate to this entity that can be used in the Mixpanel UI for filtering\",\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"teamContacts\":{\"description\":\"A list of team names responsible for this entity.\",\"items\":{\"type\":\"string\"},\"type\":\"array\"}},\"type\":\"object\"}},\"type\":\"object\"},\"properties\":{\"additionalProperties\":{\"additionalProperties\":false,\"description\":\"The name and definition for a property. E.g. \\\"item_id\\\"\",\"properties\":{\"description\":{\"description\":\"The property description\",\"type\":\"string\"},\"metadata\":{\"properties\":{\"com.mixpanel\":{\"additionalProperties\":false,\"description\":\"Metadata that is specific to Mixpanel\",\"properties\":{\"displayName\":{\"description\":\"If set, this name will be used in the Mixpanel UI instead of the entity name\",\"type\":\"string\"},\"dropped\":{\"default\":false,\"description\":\"[Events only] If true, the property will be dropped at ingestion time.\",\"type\":\"boolean\"},\"hidden\":{\"default\":false,\"description\":\"If true, this property will be hidden in the Mixpanel UI\",\"type\":\"boolean\"}},\"type\":\"object\"}},\"type\":\"object\"},\"type\":{\"enum\":[\"array\",\"boolean\",\"integer\",\"null\",\"number\",\"object\",\"string\"]}},\"required\":[\"type\"],\"type\":\"object\"},\"description\":\"The list of properties that should be included on an instance of this entity\",\"type\":\"object\"}},\"type\":\"object\"}},\"required\":[\"name\",\"entityType\",\"schemaJson\"],\"type\":\"object\"},\"type\":\"array\"},\"truncate\":{\"default\":false,\"description\":\"If true, delete your entire data dictionary before inserting these entries. This is primarily useful if you want to upload a single file that represents your entire data dictionary.\",\"type\":\"boolean\"}},\"required\":[\"entries\"],\"type\":\"object\"}}}},\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"results\":{\"properties\":{\"added\":{\"description\":\"The number of entries that were inserted\",\"type\":\"integer\"},\"deleted\":{\"description\":\"The number of entries that were deleted (on applicable if `truncate: true`)\",\"type\":\"integer\"}},\"type\":\"object\"},\"status\":{\"enum\":[\"ok\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Success\"},\"401\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Details about the error that occurred\",\"type\":\"string\"},\"status\":{\"enum\":[\"error\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Unauthorized\"},\"403\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Details about the error that occurred\",\"type\":\"string\"},\"status\":{\"enum\":[\"error\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Forbidden\"}},\"security\":[{\"ServiceAccount\":[]}],\"securitySchemes\":{\"OAuthToken\":{\"description\":\"OAuth Token\",\"scheme\":\"bearer\",\"type\":\"http\"},\"ProjectSecret\":{\"description\":\"Project Secret\",\"scheme\":\"basic\",\"type\":\"http\"},\"ServiceAccount\":{\"description\":\"Service Account\",\"scheme\":\"basic\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
+                  "kind": "http",
+                  "method": "POST",
+                  "orig": "/projects/{projectId}/schemas",
+                  "rename": {
+                    "param": {
+                      "projectId": "project_id"
+                    }
+                  },
+                  "segments": [
+                    {
+                      "lit": "projects"
+                    },
+                    {
+                      "var": "project_id"
+                    },
+                    {
+                      "lit": "schemas"
+                    }
+                  ],
+                  "select": {
+                    "exist": [
+                      "project_id"
+                    ]
+                  },
+                  "transform": {
+                    "req": {
+                      "entries": "`reqdata.entry`",
+                      "truncate": "`reqdata.truncate`"
+                    },
+                    "res": "`body.results`"
+                  }
+                }
+              ]
+            }
+          },
+          "relations": {
+            "ancestors": [
+              [
+                "project"
+              ]
+            ]
+          }
+        },
+        "project": {
+          "active": true,
+          "alias": {
+            "field": {}
+          },
+          "fields": [],
+          "name": "project",
+          "op": {},
+          "relations": {
+            "ancestors": []
+          }
+        },
+        "schema": {
+          "active": true,
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "active": true,
+              "name": "description",
+              "req": false,
+              "short": "The entity description",
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "entityType",
+              "req": true,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "id",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "metadata",
+              "req": false,
+              "type": "`$OBJECT`"
+            },
+            {
+              "active": true,
+              "name": "name",
+              "req": true,
+              "short": "The entity name (eg: Added To Cart)",
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "properties",
+              "req": false,
+              "short": "The list of properties that should be included on an instance of this entity",
+              "type": "`$OBJECT`"
+            },
+            {
+              "active": true,
+              "name": "results",
+              "req": false,
+              "type": "`$ARRAY`"
+            },
+            {
+              "active": true,
+              "name": "schemaJson",
+              "req": true,
+              "short": "The schema for the entity",
+              "type": "`$OBJECT`"
+            },
+            {
+              "active": true,
+              "name": "status",
+              "req": false,
+              "type": "`$STRING`"
+            }
+          ],
+          "id": {
+            "field": "id",
+            "name": "id"
+          },
+          "name": "schema",
+          "op": {
+            "list": {
+              "input": "data",
+              "name": "list",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "project_id",
+                        "orig": "project_id",
+                        "reqd": true,
+                        "type": "`$INTEGER`"
+                      }
+                    ]
+                  },
+                  "contract": {
+                    "id": "GET /projects/{projectId}/schemas",
+                    "json": "{\"operationId\":\"list-all-schemas-for-project\",\"parameters\":[{\"description\":\"Your project id (eg: 12345)\",\"in\":\"path\",\"name\":\"projectId\",\"required\":true,\"schema\":{\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"results\":{\"items\":{\"additionalProperties\":false,\"properties\":{\"entityType\":{\"enum\":[\"event\",\"profile\"],\"type\":\"string\"},\"name\":{\"description\":\"The entity name (eg: Added To Cart)\",\"type\":\"string\"},\"schemaJson\":{\"description\":\"The schema for the entity\",\"properties\":{\"description\":{\"description\":\"The entity description\",\"type\":\"string\"},\"metadata\":{\"properties\":{\"com.mixpanel\":{\"additionalProperties\":false,\"description\":\"Metadata about this entity that is specific to Mixpanel\",\"properties\":{\"$source\":{\"description\":\"The source of this schema. Used by partners to identify themselves\",\"type\":\"string\"},\"contacts\":{\"description\":\"A list of emails belonging to users responsible for this entity.\",\"items\":{\"additionalProperties\":false,\"type\":\"string\"},\"type\":\"array\"},\"displayName\":{\"description\":\"If set, this name will be used in the Mixpanel UI instead of the entity name\",\"type\":\"string\"},\"dropped\":{\"default\":false,\"description\":\"[Events only] If true, the event will be dropped at ingestion time.\",\"type\":\"boolean\"},\"hidden\":{\"default\":false,\"description\":\"If true, this entity will be hidden in the Mixpanel UI\",\"type\":\"boolean\"},\"tags\":{\"description\":\"A list of tags to associate to this entity that can be used in the Mixpanel UI for filtering\",\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"teamContacts\":{\"description\":\"A list of team names responsible for this entity.\",\"items\":{\"type\":\"string\"},\"type\":\"array\"}},\"type\":\"object\"}},\"type\":\"object\"},\"properties\":{\"additionalProperties\":{\"additionalProperties\":false,\"description\":\"The name and definition for a property. E.g. \\\"item_id\\\"\",\"properties\":{\"description\":{\"description\":\"The property description\",\"type\":\"string\"},\"metadata\":{\"properties\":{\"com.mixpanel\":{\"additionalProperties\":false,\"description\":\"Metadata that is specific to Mixpanel\",\"properties\":{\"displayName\":{\"description\":\"If set, this name will be used in the Mixpanel UI instead of the entity name\",\"type\":\"string\"},\"dropped\":{\"default\":false,\"description\":\"[Events only] If true, the property will be dropped at ingestion time.\",\"type\":\"boolean\"},\"hidden\":{\"default\":false,\"description\":\"If true, this property will be hidden in the Mixpanel UI\",\"type\":\"boolean\"}},\"type\":\"object\"}},\"type\":\"object\"},\"type\":{\"enum\":[\"array\",\"boolean\",\"integer\",\"null\",\"number\",\"object\",\"string\"]}},\"required\":[\"type\"],\"type\":\"object\"},\"description\":\"The list of properties that should be included on an instance of this entity\",\"type\":\"object\"}},\"type\":\"object\"}},\"required\":[\"name\",\"entityType\",\"schemaJson\"],\"type\":\"object\"},\"type\":\"array\"},\"status\":{\"enum\":[\"ok\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Success\"},\"401\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Details about the error that occurred\",\"type\":\"string\"},\"status\":{\"enum\":[\"error\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Unauthorized\"},\"403\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Details about the error that occurred\",\"type\":\"string\"},\"status\":{\"enum\":[\"error\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Forbidden\"}},\"security\":[{\"ServiceAccount\":[]}],\"securitySchemes\":{\"OAuthToken\":{\"description\":\"OAuth Token\",\"scheme\":\"bearer\",\"type\":\"http\"},\"ProjectSecret\":{\"description\":\"Project Secret\",\"scheme\":\"basic\",\"type\":\"http\"},\"ServiceAccount\":{\"description\":\"Service Account\",\"scheme\":\"basic\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
+                  "kind": "http",
+                  "method": "GET",
+                  "orig": "/projects/{projectId}/schemas",
+                  "rename": {
+                    "param": {
+                      "projectId": "project_id"
+                    }
+                  },
+                  "segments": [
+                    {
+                      "lit": "projects"
+                    },
+                    {
+                      "var": "project_id"
+                    },
+                    {
+                      "lit": "schemas"
+                    }
+                  ],
+                  "select": {
+                    "exist": [
+                      "project_id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body.results`"
+                  }
+                }
+              ]
+            },
+            "load": {
+              "input": "data",
+              "name": "load",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "id",
+                        "orig": "entity_type",
+                        "reqd": true,
+                        "type": "`$STRING`"
+                      },
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "project_id",
+                        "orig": "project_id",
+                        "reqd": true,
+                        "type": "`$INTEGER`"
+                      }
+                    ],
+                    "query": [
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "entity_name",
+                        "orig": "entity_name",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "contract": {
+                    "id": "GET /projects/{projectId}/schemas/{entityType}",
+                    "json": "{\"operationId\":\"list-schemas-for-entity\",\"parameters\":[{\"description\":\"Your project id (eg: 12345)\",\"in\":\"path\",\"name\":\"projectId\",\"required\":true,\"schema\":{\"type\":\"integer\"}},{\"description\":\"The entity type (eg: event)\",\"in\":\"path\",\"name\":\"entityType\",\"required\":true,\"schema\":{\"enum\":[\"event\",\"profile\"],\"type\":\"string\"}},{\"description\":\"The entity name (eg: Added To Cart)\",\"in\":\"query\",\"name\":\"entity_name\",\"required\":false,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"results\":{\"items\":{\"additionalProperties\":false,\"properties\":{\"entityType\":{\"enum\":[\"event\",\"profile\"],\"type\":\"string\"},\"name\":{\"description\":\"The entity name (eg: Added To Cart)\",\"type\":\"string\"},\"schemaJson\":{\"description\":\"The schema for the entity\",\"properties\":{\"description\":{\"description\":\"The entity description\",\"type\":\"string\"},\"metadata\":{\"properties\":{\"com.mixpanel\":{\"additionalProperties\":false,\"description\":\"Metadata about this entity that is specific to Mixpanel\",\"properties\":{\"$source\":{\"description\":\"The source of this schema. Used by partners to identify themselves\",\"type\":\"string\"},\"contacts\":{\"description\":\"A list of emails belonging to users responsible for this entity.\",\"items\":{\"additionalProperties\":false,\"type\":\"string\"},\"type\":\"array\"},\"displayName\":{\"description\":\"If set, this name will be used in the Mixpanel UI instead of the entity name\",\"type\":\"string\"},\"dropped\":{\"default\":false,\"description\":\"[Events only] If true, the event will be dropped at ingestion time.\",\"type\":\"boolean\"},\"hidden\":{\"default\":false,\"description\":\"If true, this entity will be hidden in the Mixpanel UI\",\"type\":\"boolean\"},\"tags\":{\"description\":\"A list of tags to associate to this entity that can be used in the Mixpanel UI for filtering\",\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"teamContacts\":{\"description\":\"A list of team names responsible for this entity.\",\"items\":{\"type\":\"string\"},\"type\":\"array\"}},\"type\":\"object\"}},\"type\":\"object\"},\"properties\":{\"additionalProperties\":{\"additionalProperties\":false,\"description\":\"The name and definition for a property. E.g. \\\"item_id\\\"\",\"properties\":{\"description\":{\"description\":\"The property description\",\"type\":\"string\"},\"metadata\":{\"properties\":{\"com.mixpanel\":{\"additionalProperties\":false,\"description\":\"Metadata that is specific to Mixpanel\",\"properties\":{\"displayName\":{\"description\":\"If set, this name will be used in the Mixpanel UI instead of the entity name\",\"type\":\"string\"},\"dropped\":{\"default\":false,\"description\":\"[Events only] If true, the property will be dropped at ingestion time.\",\"type\":\"boolean\"},\"hidden\":{\"default\":false,\"description\":\"If true, this property will be hidden in the Mixpanel UI\",\"type\":\"boolean\"}},\"type\":\"object\"}},\"type\":\"object\"},\"type\":{\"enum\":[\"array\",\"boolean\",\"integer\",\"null\",\"number\",\"object\",\"string\"]}},\"required\":[\"type\"],\"type\":\"object\"},\"description\":\"The list of properties that should be included on an instance of this entity\",\"type\":\"object\"}},\"type\":\"object\"}},\"required\":[\"name\",\"entityType\",\"schemaJson\"],\"type\":\"object\"},\"type\":\"array\"},\"status\":{\"enum\":[\"ok\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Success\"},\"401\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Details about the error that occurred\",\"type\":\"string\"},\"status\":{\"enum\":[\"error\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Unauthorized\"},\"403\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Details about the error that occurred\",\"type\":\"string\"},\"status\":{\"enum\":[\"error\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Forbidden\"}},\"security\":[{\"ServiceAccount\":[]}],\"securitySchemes\":{\"OAuthToken\":{\"description\":\"OAuth Token\",\"scheme\":\"bearer\",\"type\":\"http\"},\"ProjectSecret\":{\"description\":\"Project Secret\",\"scheme\":\"basic\",\"type\":\"http\"},\"ServiceAccount\":{\"description\":\"Service Account\",\"scheme\":\"basic\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
+                  "kind": "http",
+                  "method": "GET",
+                  "orig": "/projects/{projectId}/schemas/{entityType}",
+                  "rename": {
+                    "param": {
+                      "entityType": "id",
+                      "projectId": "project_id"
+                    }
+                  },
+                  "segments": [
+                    {
+                      "lit": "projects"
+                    },
+                    {
+                      "var": "project_id"
+                    },
+                    {
+                      "lit": "schemas"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
+                  "select": {
+                    "exist": [
+                      "entity_name",
+                      "id",
+                      "project_id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "entity_type",
+                        "orig": "entity_type",
+                        "reqd": true,
+                        "type": "`$STRING`"
+                      },
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "name",
+                        "orig": "name",
+                        "reqd": true,
+                        "type": "`$STRING`"
+                      },
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "project_id",
+                        "orig": "project_id",
+                        "reqd": true,
+                        "type": "`$INTEGER`"
+                      }
+                    ]
+                  },
+                  "contract": {
+                    "id": "GET /projects/{projectId}/schemas/{entityType}/{name}",
+                    "json": "{\"operationId\":\"list-schemas-by-entity-and-name\",\"parameters\":[{\"description\":\"Your project id (eg: 12345)\",\"in\":\"path\",\"name\":\"projectId\",\"required\":true,\"schema\":{\"type\":\"integer\"}},{\"description\":\"The entity type (eg: event)\",\"in\":\"path\",\"name\":\"entityType\",\"required\":true,\"schema\":{\"enum\":[\"event\",\"profile\"],\"type\":\"string\"}},{\"description\":\"The entity name (eg: Added To Cart)\",\"in\":\"path\",\"name\":\"name\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"description\":\"The schema for the entity\",\"properties\":{\"description\":{\"description\":\"The entity description\",\"type\":\"string\"},\"metadata\":{\"properties\":{\"com.mixpanel\":{\"additionalProperties\":false,\"description\":\"Metadata about this entity that is specific to Mixpanel\",\"properties\":{\"$source\":{\"description\":\"The source of this schema. Used by partners to identify themselves\",\"type\":\"string\"},\"contacts\":{\"description\":\"A list of emails belonging to users responsible for this entity.\",\"items\":{\"additionalProperties\":false,\"type\":\"string\"},\"type\":\"array\"},\"displayName\":{\"description\":\"If set, this name will be used in the Mixpanel UI instead of the entity name\",\"type\":\"string\"},\"dropped\":{\"default\":false,\"description\":\"[Events only] If true, the event will be dropped at ingestion time.\",\"type\":\"boolean\"},\"hidden\":{\"default\":false,\"description\":\"If true, this entity will be hidden in the Mixpanel UI\",\"type\":\"boolean\"},\"tags\":{\"description\":\"A list of tags to associate to this entity that can be used in the Mixpanel UI for filtering\",\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"teamContacts\":{\"description\":\"A list of team names responsible for this entity.\",\"items\":{\"type\":\"string\"},\"type\":\"array\"}},\"type\":\"object\"}},\"type\":\"object\"},\"properties\":{\"additionalProperties\":{\"additionalProperties\":false,\"description\":\"The name and definition for a property. E.g. \\\"item_id\\\"\",\"properties\":{\"description\":{\"description\":\"The property description\",\"type\":\"string\"},\"metadata\":{\"properties\":{\"com.mixpanel\":{\"additionalProperties\":false,\"description\":\"Metadata that is specific to Mixpanel\",\"properties\":{\"displayName\":{\"description\":\"If set, this name will be used in the Mixpanel UI instead of the entity name\",\"type\":\"string\"},\"dropped\":{\"default\":false,\"description\":\"[Events only] If true, the property will be dropped at ingestion time.\",\"type\":\"boolean\"},\"hidden\":{\"default\":false,\"description\":\"If true, this property will be hidden in the Mixpanel UI\",\"type\":\"boolean\"}},\"type\":\"object\"}},\"type\":\"object\"},\"type\":{\"enum\":[\"array\",\"boolean\",\"integer\",\"null\",\"number\",\"object\",\"string\"]}},\"required\":[\"type\"],\"type\":\"object\"},\"description\":\"The list of properties that should be included on an instance of this entity\",\"type\":\"object\"}},\"type\":\"object\"}}},\"description\":\"Success\"},\"401\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Details about the error that occurred\",\"type\":\"string\"},\"status\":{\"enum\":[\"error\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Unauthorized\"},\"403\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Details about the error that occurred\",\"type\":\"string\"},\"status\":{\"enum\":[\"error\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Forbidden\"}},\"security\":[{\"ServiceAccount\":[]}],\"securitySchemes\":{\"OAuthToken\":{\"description\":\"OAuth Token\",\"scheme\":\"bearer\",\"type\":\"http\"},\"ProjectSecret\":{\"description\":\"Project Secret\",\"scheme\":\"basic\",\"type\":\"http\"},\"ServiceAccount\":{\"description\":\"Service Account\",\"scheme\":\"basic\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
+                  "kind": "http",
+                  "method": "GET",
+                  "orig": "/projects/{projectId}/schemas/{entityType}/{name}",
+                  "rename": {
+                    "param": {
+                      "entityType": "entity_type",
+                      "projectId": "project_id"
+                    }
+                  },
+                  "segments": [
+                    {
+                      "lit": "projects"
+                    },
+                    {
+                      "var": "project_id"
+                    },
+                    {
+                      "lit": "schemas"
+                    },
+                    {
+                      "var": "entity_type"
+                    },
+                    {
+                      "var": "name"
+                    }
+                  ],
+                  "select": {
+                    "exist": [
+                      "entity_type",
+                      "name",
+                      "project_id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            },
+            "remove": {
+              "input": "data",
+              "name": "remove",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "id",
+                        "orig": "entity_type",
+                        "reqd": true,
+                        "type": "`$STRING`"
+                      },
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "project_id",
+                        "orig": "project_id",
+                        "reqd": true,
+                        "type": "`$INTEGER`"
+                      }
+                    ],
+                    "query": [
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "entity_name",
+                        "orig": "entity_name",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "contract": {
+                    "id": "DELETE /projects/{projectId}/schemas/{entityType}",
+                    "json": "{\"operationId\":\"delete-schemas-for-entity\",\"parameters\":[{\"description\":\"Your project id (eg: 12345)\",\"in\":\"path\",\"name\":\"projectId\",\"required\":true,\"schema\":{\"type\":\"integer\"}},{\"description\":\"The entity type (eg: event)\",\"in\":\"path\",\"name\":\"entityType\",\"required\":true,\"schema\":{\"enum\":[\"event\",\"profile\"],\"type\":\"string\"}},{\"description\":\"The entity name (eg: Added To Cart)\",\"in\":\"query\",\"name\":\"entity_name\",\"required\":false,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"results\":{\"properties\":{\"delete_count\":{\"type\":\"integer\"}},\"type\":\"object\"},\"status\":{\"enum\":[\"ok\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Success\"},\"401\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Details about the error that occurred\",\"type\":\"string\"},\"status\":{\"enum\":[\"error\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Unauthorized\"},\"403\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Details about the error that occurred\",\"type\":\"string\"},\"status\":{\"enum\":[\"error\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Forbidden\"}},\"security\":[{\"ServiceAccount\":[]}],\"securitySchemes\":{\"OAuthToken\":{\"description\":\"OAuth Token\",\"scheme\":\"bearer\",\"type\":\"http\"},\"ProjectSecret\":{\"description\":\"Project Secret\",\"scheme\":\"basic\",\"type\":\"http\"},\"ServiceAccount\":{\"description\":\"Service Account\",\"scheme\":\"basic\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
+                  "kind": "http",
+                  "method": "DELETE",
+                  "orig": "/projects/{projectId}/schemas/{entityType}",
+                  "rename": {
+                    "param": {
+                      "entityType": "id",
+                      "projectId": "project_id"
+                    }
+                  },
+                  "segments": [
+                    {
+                      "lit": "projects"
+                    },
+                    {
+                      "var": "project_id"
+                    },
+                    {
+                      "lit": "schemas"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
+                  "select": {
+                    "exist": [
+                      "entity_name",
+                      "id",
+                      "project_id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body.results`"
+                  }
+                },
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "entity_type",
+                        "orig": "entity_type",
+                        "reqd": true,
+                        "type": "`$STRING`"
+                      },
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "name",
+                        "orig": "name",
+                        "reqd": true,
+                        "type": "`$STRING`"
+                      },
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "project_id",
+                        "orig": "project_id",
+                        "reqd": true,
+                        "type": "`$INTEGER`"
+                      }
+                    ]
+                  },
+                  "contract": {
+                    "id": "DELETE /projects/{projectId}/schemas/{entityType}/{name}",
+                    "json": "{\"operationId\":\"delete-schema-by-entity-and-name\",\"parameters\":[{\"description\":\"Your project id (eg: 12345)\",\"in\":\"path\",\"name\":\"projectId\",\"required\":true,\"schema\":{\"type\":\"integer\"}},{\"description\":\"The entity type (eg: event)\",\"in\":\"path\",\"name\":\"entityType\",\"required\":true,\"schema\":{\"enum\":[\"event\",\"profile\"],\"type\":\"string\"}},{\"description\":\"The entity name (eg: Added To Cart)\",\"in\":\"path\",\"name\":\"name\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"results\":{\"properties\":{\"delete_count\":{\"type\":\"integer\"}},\"type\":\"object\"},\"status\":{\"enum\":[\"ok\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Success\"},\"401\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Details about the error that occurred\",\"type\":\"string\"},\"status\":{\"enum\":[\"error\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Unauthorized\"},\"403\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Details about the error that occurred\",\"type\":\"string\"},\"status\":{\"enum\":[\"error\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Forbidden\"}},\"security\":[{\"ServiceAccount\":[]}],\"securitySchemes\":{\"OAuthToken\":{\"description\":\"OAuth Token\",\"scheme\":\"bearer\",\"type\":\"http\"},\"ProjectSecret\":{\"description\":\"Project Secret\",\"scheme\":\"basic\",\"type\":\"http\"},\"ServiceAccount\":{\"description\":\"Service Account\",\"scheme\":\"basic\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
+                  "kind": "http",
+                  "method": "DELETE",
+                  "orig": "/projects/{projectId}/schemas/{entityType}/{name}",
+                  "rename": {
+                    "param": {
+                      "entityType": "entity_type",
+                      "projectId": "project_id"
+                    }
+                  },
+                  "segments": [
+                    {
+                      "lit": "projects"
+                    },
+                    {
+                      "var": "project_id"
+                    },
+                    {
+                      "lit": "schemas"
+                    },
+                    {
+                      "var": "entity_type"
+                    },
+                    {
+                      "var": "name"
+                    }
+                  ],
+                  "select": {
+                    "exist": [
+                      "entity_type",
+                      "name",
+                      "project_id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body.results`"
+                  }
+                },
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "project_id",
+                        "orig": "project_id",
+                        "reqd": true,
+                        "type": "`$INTEGER`"
+                      }
+                    ]
+                  },
+                  "contract": {
+                    "id": "DELETE /projects/{projectId}/schemas",
+                    "json": "{\"operationId\":\"delete-all-schemas-in-project\",\"parameters\":[{\"description\":\"Your project id (eg: 12345)\",\"in\":\"path\",\"name\":\"projectId\",\"required\":true,\"schema\":{\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"results\":{\"properties\":{\"delete_count\":{\"type\":\"integer\"}},\"type\":\"object\"},\"status\":{\"enum\":[\"ok\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Success\"},\"401\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Details about the error that occurred\",\"type\":\"string\"},\"status\":{\"enum\":[\"error\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Unauthorized\"},\"403\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Details about the error that occurred\",\"type\":\"string\"},\"status\":{\"enum\":[\"error\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Forbidden\"}},\"security\":[{\"ServiceAccount\":[]}],\"securitySchemes\":{\"OAuthToken\":{\"description\":\"OAuth Token\",\"scheme\":\"bearer\",\"type\":\"http\"},\"ProjectSecret\":{\"description\":\"Project Secret\",\"scheme\":\"basic\",\"type\":\"http\"},\"ServiceAccount\":{\"description\":\"Service Account\",\"scheme\":\"basic\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
+                  "kind": "http",
+                  "method": "DELETE",
+                  "orig": "/projects/{projectId}/schemas",
+                  "rename": {
+                    "param": {
+                      "projectId": "project_id"
+                    }
+                  },
+                  "segments": [
+                    {
+                      "lit": "projects"
+                    },
+                    {
+                      "var": "project_id"
+                    },
+                    {
+                      "lit": "schemas"
+                    }
+                  ],
+                  "select": {
+                    "exist": [
+                      "project_id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body.results`"
+                  }
+                }
+              ]
+            }
+          },
+          "relations": {
+            "ancestors": [
+              [
+                "project"
+              ],
+              [
+                "project",
+                "schema"
+              ]
+            ]
+          }
+        },
+        "upload_schema": {
+          "active": true,
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "active": true,
+              "name": "description",
+              "req": false,
+              "short": "The entity description",
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "metadata",
+              "req": false,
+              "type": "`$OBJECT`"
+            },
+            {
+              "active": true,
+              "name": "properties",
+              "req": false,
+              "short": "The list of properties that should be included on an instance of this entity",
+              "type": "`$OBJECT`"
+            },
+            {
+              "active": true,
+              "name": "status",
+              "req": false,
+              "type": "`$STRING`"
+            }
+          ],
+          "name": "upload_schema",
+          "op": {
+            "create": {
+              "input": "data",
+              "name": "create",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "entity_type",
+                        "orig": "entity_type",
+                        "reqd": true,
+                        "type": "`$STRING`"
+                      },
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "name",
+                        "orig": "name",
+                        "reqd": true,
+                        "type": "`$STRING`"
+                      },
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "project_id",
+                        "orig": "project_id",
+                        "reqd": true,
+                        "type": "`$INTEGER`"
+                      }
+                    ]
+                  },
+                  "contract": {
+                    "id": "POST /projects/{projectId}/schemas/{entityType}/{name}",
+                    "json": "{\"operationId\":\"upload-schema-by-entity-and-name\",\"parameters\":[{\"description\":\"Your project id (eg: 12345)\",\"in\":\"path\",\"name\":\"projectId\",\"required\":true,\"schema\":{\"type\":\"integer\"}},{\"description\":\"The entity type (eg: event)\",\"in\":\"path\",\"name\":\"entityType\",\"required\":true,\"schema\":{\"enum\":[\"event\",\"profile\"],\"type\":\"string\"}},{\"description\":\"The entity name (eg: Added To Cart)\",\"in\":\"path\",\"name\":\"name\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"description\":\"The schema for the entity\",\"properties\":{\"description\":{\"description\":\"The entity description\",\"type\":\"string\"},\"metadata\":{\"properties\":{\"com.mixpanel\":{\"additionalProperties\":false,\"description\":\"Metadata about this entity that is specific to Mixpanel\",\"properties\":{\"$source\":{\"description\":\"The source of this schema. Used by partners to identify themselves\",\"type\":\"string\"},\"contacts\":{\"description\":\"A list of emails belonging to users responsible for this entity.\",\"items\":{\"additionalProperties\":false,\"type\":\"string\"},\"type\":\"array\"},\"displayName\":{\"description\":\"If set, this name will be used in the Mixpanel UI instead of the entity name\",\"type\":\"string\"},\"dropped\":{\"default\":false,\"description\":\"[Events only] If true, the event will be dropped at ingestion time.\",\"type\":\"boolean\"},\"hidden\":{\"default\":false,\"description\":\"If true, this entity will be hidden in the Mixpanel UI\",\"type\":\"boolean\"},\"tags\":{\"description\":\"A list of tags to associate to this entity that can be used in the Mixpanel UI for filtering\",\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"teamContacts\":{\"description\":\"A list of team names responsible for this entity.\",\"items\":{\"type\":\"string\"},\"type\":\"array\"}},\"type\":\"object\"}},\"type\":\"object\"},\"properties\":{\"additionalProperties\":{\"additionalProperties\":false,\"description\":\"The name and definition for a property. E.g. \\\"item_id\\\"\",\"properties\":{\"description\":{\"description\":\"The property description\",\"type\":\"string\"},\"metadata\":{\"properties\":{\"com.mixpanel\":{\"additionalProperties\":false,\"description\":\"Metadata that is specific to Mixpanel\",\"properties\":{\"displayName\":{\"description\":\"If set, this name will be used in the Mixpanel UI instead of the entity name\",\"type\":\"string\"},\"dropped\":{\"default\":false,\"description\":\"[Events only] If true, the property will be dropped at ingestion time.\",\"type\":\"boolean\"},\"hidden\":{\"default\":false,\"description\":\"If true, this property will be hidden in the Mixpanel UI\",\"type\":\"boolean\"}},\"type\":\"object\"}},\"type\":\"object\"},\"type\":{\"enum\":[\"array\",\"boolean\",\"integer\",\"null\",\"number\",\"object\",\"string\"]}},\"required\":[\"type\"],\"type\":\"object\"},\"description\":\"The list of properties that should be included on an instance of this entity\",\"type\":\"object\"}},\"type\":\"object\"}}}},\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"status\":{\"enum\":[\"ok\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Success\"},\"400\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Details about the error that occurred\",\"type\":\"string\"},\"status\":{\"enum\":[\"error\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Bad request\"},\"401\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Details about the error that occurred\",\"type\":\"string\"},\"status\":{\"enum\":[\"error\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Unauthorized\"},\"403\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Details about the error that occurred\",\"type\":\"string\"},\"status\":{\"enum\":[\"error\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Forbidden\"}},\"security\":[{\"ServiceAccount\":[]}],\"securitySchemes\":{\"OAuthToken\":{\"description\":\"OAuth Token\",\"scheme\":\"bearer\",\"type\":\"http\"},\"ProjectSecret\":{\"description\":\"Project Secret\",\"scheme\":\"basic\",\"type\":\"http\"},\"ServiceAccount\":{\"description\":\"Service Account\",\"scheme\":\"basic\",\"type\":\"http\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
+                  "kind": "http",
+                  "method": "POST",
+                  "orig": "/projects/{projectId}/schemas/{entityType}/{name}",
+                  "rename": {
+                    "param": {
+                      "entityType": "entity_type",
+                      "projectId": "project_id"
+                    }
+                  },
+                  "segments": [
+                    {
+                      "lit": "projects"
+                    },
+                    {
+                      "var": "project_id"
+                    },
+                    {
+                      "lit": "schemas"
+                    },
+                    {
+                      "var": "entity_type"
+                    },
+                    {
+                      "var": "name"
+                    }
+                  ],
+                  "select": {
+                    "exist": [
+                      "entity_type",
+                      "name",
+                      "project_id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            }
+          },
+          "relations": {
+            "ancestors": [
+              [
+                "project",
+                "schema"
+              ]
+            ]
+          }
+        }
+      },
+      "feature": {
+        "debug": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "max": 100,
+              "redact": [
+                "authorization",
+                "cookie",
+                "set-cookie",
+                "api-key",
+                "apikey",
+                "x-api-key",
+                "idempotency-key"
+              ]
+            },
+            "optspec": {
+              "now": "`$FUNCTION`",
+              "onEntry": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreDone": {
+              "active": true,
+              "await": false
+            },
+            "PreRequest": {
+              "active": true,
+              "await": false
+            },
+            "PreResponse": {
+              "active": true,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "PreUnexpected": {
+              "active": true,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "debug",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "js": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Request/response capture ring buffer for debugging",
+          "transport": "none",
+          "version": "0.0.1"
+        },
+        "idempotency": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "header": "Idempotency-Key",
+              "methods": [
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ],
+              "ops": [
+                "create",
+                "update",
+                "remove"
+              ]
+            },
+            "optspec": {
+              "keygen": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreRequest": {
+              "active": true,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "idempotency",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "js": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Idempotency keys for safe retries of mutating operations",
+          "transport": "none",
+          "version": "0.0.1"
+        },
+        "metrics": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false
+            },
+            "optspec": {
+              "now": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreDone": {
+              "active": true,
+              "await": false
+            },
+            "PrePoint": {
+              "active": true,
+              "await": false
+            },
+            "PreRequest": {
+              "active": false,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "PreUnexpected": {
+              "active": true,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "metrics",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "js": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Statistics capture: per-operation counters and latency",
+          "transport": "none",
+          "version": "0.0.1"
+        },
+        "paging": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "afterVar": "after",
+              "cursorParam": "cursor",
+              "firstVar": "first",
+              "limitParam": "limit",
+              "pageParam": "page",
+              "startPage": 1
+            },
+            "optspec": {
+              "limit": "`$NUMBER`",
+              "ops": "`$LIST`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreRequest": {
+              "active": true,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": true,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "paging",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "js": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Pagination signals for list operations",
+          "transport": "none",
+          "version": "0.0.1"
+        },
+        "ratelimit": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "burst": 5,
+              "rate": 5
+            },
+            "optspec": {
+              "now": "`$FUNCTION`",
+              "sleep": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreRequest": {
+              "active": false,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "ratelimit",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "js": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Client-side rate limiting via a token bucket",
+          "transport": "wrap",
+          "version": "0.0.1"
+        },
+        "retry": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "factor": 2,
+              "maxDelay": 2000,
+              "minDelay": 50,
+              "retries": 2,
+              "statuses": [
+                408,
+                425,
+                429,
+                500,
+                502,
+                503,
+                504
+              ]
+            },
+            "optspec": {
+              "jitter": "`$BOOLEAN`",
+              "sleep": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreRequest": {
+              "active": false,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "retry",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "js": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Automatic retry of transient failures with exponential backoff",
+          "transport": "wrap",
+          "version": "0.0.1"
+        },
+        "test": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false
+            },
+            "optspec": {
+              "entity": "`$MAP`",
+              "net": "`$MAP`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": true,
+              "await": false
+            },
+            "GetMatch": {
+              "active": true,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": true,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": true,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PrePoint": {
+              "active": true,
+              "await": false
+            },
+            "PreRequest": {
+              "active": true,
+              "await": false
+            },
+            "PreResponse": {
+              "active": true,
+              "await": false
+            },
+            "PreResult": {
+              "active": true,
+              "await": false
+            },
+            "PreSpec": {
+              "active": true,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": true,
+              "await": false
+            },
+            "SetMatch": {
+              "active": true,
+              "await": false
+            }
+          },
+          "name": "test",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "js": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "In-memory mock transport for testing without a live server",
+          "transport": "base",
+          "version": "0.0.1"
+        },
+        "timeout": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "ms": 30000
+            },
+            "optspec": {
+              "clearTimer": "`$FUNCTION`",
+              "setTimer": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreRequest": {
+              "active": false,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "timeout",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "js": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Per-request timeout with transport abort",
+          "transport": "wrap",
+          "version": "0.0.1"
+        }
+      },
+      "flow": {
+        "BasicBatchUploadSchemaFlow": {
+          "active": true,
+          "entity": "batch_upload_schema",
+          "key$": "BasicBatchUploadSchemaFlow",
+          "kind": "basic",
+          "name": "BasicBatchUploadSchemaFlow",
+          "param": {},
+          "step": [
+            {
+              "active": true,
+              "data": {},
+              "input": {
+                "ref": "batch_upload_schema_ref01"
+              },
+              "match": {
+                "project_id": "project01"
+              },
+              "op": "create",
+              "spec": [],
+              "valid": []
+            }
+          ]
+        },
+        "BasicProjectFlow": {
+          "active": true,
+          "entity": "project",
+          "key$": "BasicProjectFlow",
+          "kind": "basic",
+          "name": "BasicProjectFlow",
+          "param": {},
+          "step": []
+        },
+        "BasicSchemaFlow": {
+          "active": true,
+          "entity": "schema",
+          "key$": "BasicSchemaFlow",
+          "kind": "basic",
+          "name": "BasicSchemaFlow",
+          "param": {},
+          "step": [
+            {
+              "active": true,
+              "data": {},
+              "input": {},
+              "match": {
+                "project_id": "project01"
+              },
+              "op": "list",
+              "spec": [],
+              "valid": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "schema_ref01"
+                  }
+                }
+              ]
+            },
+            {
+              "active": true,
+              "data": {},
+              "input": {
+                "ref": "schema_ref01",
+                "srcdatavar": "schema_ref01_data",
+                "suffix": "_dt0"
+              },
+              "match": {
+                "entity_type": "entity_type01",
+                "id": "schema01",
+                "project_id": "project01"
+              },
+              "op": "load",
+              "spec": [],
+              "valid": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-schema_ref01"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "BasicUploadSchemaFlow": {
+          "active": true,
+          "entity": "upload_schema",
+          "key$": "BasicUploadSchemaFlow",
+          "kind": "basic",
+          "name": "BasicUploadSchemaFlow",
+          "param": {},
+          "step": [
+            {
+              "active": true,
+              "data": {},
+              "input": {
+                "ref": "upload_schema_ref01"
+              },
+              "match": {
+                "entity_type": "entity_type01",
+                "name": "name01",
+                "project_id": "project01"
+              },
+              "op": "create",
+              "spec": [],
+              "valid": []
+            }
+          ]
+        }
+      },
+      "info": {
+        "contact": {
+          "url": "https://mixpanel.com/get-support"
+        },
+        "description": "Use schemas to sync your data dictionary with Mixpanel. Schemas can be used to populate Lexicon and provide additional context for your data.",
+        "license": {
+          "name": "MIT",
+          "url": "https://opensource.org/licenses/MIT"
+        },
+        "security": {
+          "in": "header",
+          "name": "Authorization",
+          "prefix": "Basic",
+          "scheme": "ServiceAccount",
+          "type": "http"
+        },
+        "servers": [
+          {
+            "description": "Mixpanel's application API server.",
+            "url": "https://{regionAndDomain}.com/api/app",
+            "variables": {
+              "regionAndDomain": {
+                "default": "mixpanel",
+                "description": "The server location to be used:\n* `mixpanel` - The default (US) servers used for most projects\n* `eu.mixpanel` - EU servers if you are enrolled in EU Data Residency\n* `in.mixpanel` - India servers if you are enrolled in India Data Residency\n",
+                "enum": [
+                  "mixpanel",
+                  "eu.mixpanel",
+                  "in.mixpanel"
+                ]
+              }
+            }
+          }
+        ],
+        "summary": "Use schemas to sync your data dictionary with Mixpanel.",
+        "title": "Lexicon Schemas API",
+        "version": "1.0.0",
+        "website": "https://mixpanel.com/get-support"
+      },
+      "option": {},
+      "optspec": {
+        "allow": {
+          "method": "GET,PUT,POST,PATCH,DELETE,OPTIONS",
+          "op": "create,update,load,list,remove,command,direct,graphql"
+        },
+        "apikey": "",
+        "auth": {
+          "basic": false,
+          "in": "",
+          "name": "",
+          "prefix": ""
+        },
+        "base": "http://localhost:8000",
+        "clean": {
+          "keys": "key,token,id"
+        },
+        "entity": {
+          "`$CHILD`": {
+            "`$OPEN`": true,
+            "active": false,
+            "alias": {}
+          }
+        },
+        "extend": "`$ANY`",
+        "headers": {
+          "`$CHILD`": "`$STRING`"
+        },
+        "prefix": "",
+        "secret": "",
+        "server": {
+          "`$CHILD`": ""
+        },
+        "suffix": "",
+        "system": {
+          "fetch": "`$ANY`"
+        },
+        "test": {
+          "active": false,
+          "entity": {
+            "`$OPEN`": true
+          }
+        },
+        "utility": {}
+      },
+      "repo": {
+        "host": "github.com",
+        "path": ""
+      },
+      "target": {
+        "go": {
+          "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "comment": {
+            "line": "//"
+          },
+          "deps": {},
+          "ext": "go",
+          "feature": {
+            "fullset": [
+              "test/feature_test.go"
+            ],
+            "trim": true
+          },
+          "module": {
+            "goversion": "",
+            "name": "mixpanel-lexicon-schemas",
+            "package": "",
+            "path": ""
+          },
+          "name": "go",
+          "origname": "",
+          "output": {
+            "adopt": false,
+            "create": true,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
+          "package": "@voxgig/sdkgen",
+          "provides": {
+            "schema": true,
+            "sekreto": true
+          },
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "",
+              "package": "",
+              "state": "pending",
+              "url": "",
+              "vault": {
+                "alias": "",
+                "env": "",
+                "recipe": ""
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            },
+            "version": "0.0.1"
+          },
+          "srcfeature": false,
+          "superseded": [
+            "test/runner_test.go",
+            "test/struct_runner_test.go"
+          ],
+          "title": "Golang"
+        },
+        "go-cli": {
+          "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "comment": {
+            "line": "//"
+          },
+          "deps": {},
+          "ext": "go",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
+          "module": {
+            "goversion": "",
+            "name": "mixpanel-lexicon-schemas",
+            "package": "",
+            "path": ""
+          },
+          "name": "go-cli",
+          "origname": "",
+          "output": {
+            "adopt": false,
+            "create": true,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
+          "package": "@voxgig/sdkgen",
+          "phase": {
+            "agentguide": {
+              "active": false
+            },
+            "entity": {
+              "active": false
+            },
+            "feature": {
+              "active": false
+            },
+            "readme": {
+              "active": false
+            },
+            "test": {
+              "active": false
+            }
+          },
+          "provides": {},
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "",
+              "package": "",
+              "state": "pending",
+              "url": "",
+              "vault": {
+                "alias": "",
+                "env": "",
+                "recipe": ""
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "root"
+            },
+            "version": "0.0.1"
+          },
+          "superseded": [],
+          "title": "Go CLI"
+        },
+        "go-mcp": {
+          "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "comment": {
+            "line": "//"
+          },
+          "deps": {},
+          "ext": "go",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
+          "module": {
+            "goversion": "",
+            "name": "mixpanel-lexicon-schemas",
+            "package": "",
+            "path": ""
+          },
+          "name": "go-mcp",
+          "origname": "",
+          "output": {
+            "adopt": false,
+            "create": true,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
+          "package": "@voxgig/sdkgen",
+          "phase": {
+            "agentguide": {
+              "active": false
+            },
+            "entity": {
+              "active": false
+            },
+            "feature": {
+              "active": false
+            },
+            "readme": {
+              "active": false
+            },
+            "test": {
+              "active": false
+            }
+          },
+          "provides": {},
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "",
+              "package": "",
+              "state": "pending",
+              "url": "",
+              "vault": {
+                "alias": "",
+                "env": "",
+                "recipe": ""
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "root"
+            },
+            "version": "0.0.1"
+          },
+          "superseded": [],
+          "title": "Go MCP server"
+        },
+        "js": {
+          "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "comment": {
+            "line": "//"
+          },
+          "deps": {
+            "dotenv": {
+              "active": true,
+              "kind": "dev",
+              "version": "^17.4.2"
+            }
+          },
+          "ext": "js",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
+          "module": {
+            "goversion": "",
+            "name": "mixpanel-lexicon-schemas",
+            "package": "",
+            "path": ""
+          },
+          "name": "js",
+          "origname": "",
+          "output": {
+            "adopt": false,
+            "create": true,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
+          "package": "@voxgig/sdkgen",
+          "provides": {
+            "schema": true,
+            "sekreto": true
+          },
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "npm",
+              "package": "",
+              "state": "pending",
+              "url": "https://registry.npmjs.org",
+              "vault": {
+                "alias": "npm",
+                "env": "",
+                "recipe": "npm"
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            },
+            "version": "0.0.1"
+          },
+          "superseded": [
+            "test/runner.js"
+          ],
+          "title": "JavaScript"
+        },
+        "lua": {
+          "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "comment": {
+            "line": "--"
+          },
+          "deps": {
+            "dkjson": {
+              "active": true,
+              "kind": "prod",
+              "version": "2.5"
+            }
+          },
+          "ext": "lua",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
+          "module": {
+            "goversion": "",
+            "name": "mixpanel-lexicon-schemas",
+            "package": "",
+            "path": ""
+          },
+          "name": "lua",
+          "origname": "",
+          "output": {
+            "adopt": false,
+            "create": true,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
+          "package": "@voxgig/sdkgen",
+          "provides": {
+            "schema": true,
+            "sekreto": true
+          },
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "luarocks",
+              "package": "",
+              "state": "pending",
+              "url": "https://luarocks.org",
+              "vault": {
+                "alias": "luarocks",
+                "env": "LUAROCKS_API_KEY",
+                "recipe": ""
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            },
+            "version": "0.0.1"
+          },
+          "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.lua"
+          ],
+          "title": "Lua"
+        },
+        "php": {
+          "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "comment": {
+            "line": "//"
+          },
+          "deps": {},
+          "ext": "php",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
+          "module": {
+            "goversion": "",
+            "name": "mixpanel-lexicon-schemas",
+            "package": "",
+            "path": ""
+          },
+          "name": "php",
+          "origname": "",
+          "output": {
+            "adopt": false,
+            "create": true,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
+          "package": "@voxgig/sdkgen",
+          "provides": {
+            "schema": true,
+            "sekreto": true
+          },
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "packagist",
+              "package": "",
+              "state": "pending",
+              "url": "https://packagist.org",
+              "vault": {
+                "alias": "packagist",
+                "env": "PACKAGIST_API_TOKEN",
+                "recipe": ""
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            },
+            "version": "0.0.1"
+          },
+          "srcfeature": false,
+          "superseded": [
+            "test/StructRunner.php"
+          ],
+          "title": "PHP"
+        },
+        "py": {
+          "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "comment": {
+            "line": "#"
+          },
+          "deps": {
+            "requests": {
+              "active": true,
+              "kind": "prod",
+              "version": "2.33"
+            }
+          },
+          "ext": "py",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
+          "module": {
+            "goversion": "",
+            "name": "mixpanel-lexicon-schemas",
+            "package": "",
+            "path": ""
+          },
+          "name": "py",
+          "origname": "",
+          "output": {
+            "adopt": false,
+            "create": true,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
+          "package": "@voxgig/sdkgen",
+          "provides": {
+            "schema": true,
+            "sekreto": true
+          },
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "pypi",
+              "package": "",
+              "state": "pending",
+              "url": "https://pypi.org",
+              "vault": {
+                "alias": "pypi",
+                "env": "",
+                "recipe": "pypi"
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            },
+            "version": "0.0.1"
+          },
+          "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.py"
+          ],
+          "title": "Python"
+        },
+        "ts": {
+          "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "comment": {
+            "line": "//"
+          },
+          "deps": {
+            "@types/node": {
+              "active": true,
+              "kind": "dev",
+              "version": "^25.6.0"
+            },
+            "typescript": {
+              "active": true,
+              "kind": "dev",
+              "version": "^5.9.3"
+            }
+          },
+          "ext": "ts",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
+          "module": {
+            "goversion": "",
+            "name": "mixpanel-lexicon-schemas",
+            "package": "",
+            "path": ""
+          },
+          "name": "ts",
+          "origname": "",
+          "output": {
+            "adopt": false,
+            "create": true,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
+          "package": "@voxgig/sdkgen",
+          "provides": {
+            "schema": true,
+            "sekreto": true
+          },
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "npm",
+              "package": "",
+              "state": "pending",
+              "url": "https://registry.npmjs.org",
+              "vault": {
+                "alias": "npm",
+                "env": "",
+                "recipe": "npm"
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            },
+            "version": "0.0.1"
+          },
+          "superseded": [
+            "test/runner.ts",
+            "test/vendor/omni/compat.ts",
+            "src/feature/secrets/sekreto/Providers.ts",
+            "src/feature/secrets/sekreto/Sigv4.ts",
+            "src/feature/secrets/sekreto/provider/Registry.ts",
+            "src/feature/secrets/sekreto/provider/http.ts"
+          ],
+          "title": "TypeScript"
+        }
+      },
+      "test": {
+        "live": {
+          "app": false,
+          "base": "",
+          "strict": true
+        }
+      }
+    }
+  },
+  "name": "mixpanel-lexicon-schemas",
+  "name-": "mixpanel-lexicon-schemas",
+  "name_": "mixpanel_lexicon_schemas",
+  "name__orig": "mixpanel-lexicon-schemas",
+  "origin": "voxgig-sdk"
+}

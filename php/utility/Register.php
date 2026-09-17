@@ -1,0 +1,70 @@
+<?php
+declare(strict_types=1);
+
+// MixpanelLexiconSchemas SDK utility registration
+
+require_once __DIR__ . '/../core/UtilityType.php';
+require_once __DIR__ . '/Clean.php';
+require_once __DIR__ . '/Done.php';
+require_once __DIR__ . '/MakeError.php';
+require_once __DIR__ . '/FeatureAdd.php';
+require_once __DIR__ . '/FeatureHook.php';
+require_once __DIR__ . '/FeatureInit.php';
+require_once __DIR__ . '/Fetcher.php';
+require_once __DIR__ . '/MakeFetchDef.php';
+require_once __DIR__ . '/MakeContext.php';
+require_once __DIR__ . '/MakeOptions.php';
+require_once __DIR__ . '/MakeRequest.php';
+require_once __DIR__ . '/MakeResponse.php';
+require_once __DIR__ . '/MakeResult.php';
+require_once __DIR__ . '/MakePoint.php';
+require_once __DIR__ . '/MakeSpec.php';
+require_once __DIR__ . '/MakeUrl.php';
+require_once __DIR__ . '/Param.php';
+require_once __DIR__ . '/PrepareAuth.php';
+require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/Graphql.php';
+require_once __DIR__ . '/PrepareHeaders.php';
+require_once __DIR__ . '/PrepareMethod.php';
+require_once __DIR__ . '/PrepareParams.php';
+require_once __DIR__ . '/PreparePath.php';
+require_once __DIR__ . '/PrepareQuery.php';
+require_once __DIR__ . '/ResultBasic.php';
+require_once __DIR__ . '/ResultBody.php';
+require_once __DIR__ . '/ResultHeaders.php';
+require_once __DIR__ . '/TransformRequest.php';
+require_once __DIR__ . '/TransformResponse.php';
+
+MixpanelLexiconSchemasUtility::setRegistrar(function (MixpanelLexiconSchemasUtility $u): void {
+    $u->clean = [MixpanelLexiconSchemasClean::class, 'call'];
+    $u->done = [MixpanelLexiconSchemasDone::class, 'call'];
+    $u->make_error = [MixpanelLexiconSchemasMakeError::class, 'call'];
+    $u->feature_add = [MixpanelLexiconSchemasFeatureAdd::class, 'call'];
+    $u->feature_hook = [MixpanelLexiconSchemasFeatureHook::class, 'call'];
+    $u->feature_init = [MixpanelLexiconSchemasFeatureInit::class, 'call'];
+    $u->fetcher = [MixpanelLexiconSchemasFetcher::class, 'call'];
+    $u->make_fetch_def = [MixpanelLexiconSchemasMakeFetchDef::class, 'call'];
+    $u->make_context = [MixpanelLexiconSchemasMakeContext::class, 'call'];
+    $u->make_options = [MixpanelLexiconSchemasMakeOptions::class, 'call'];
+    $u->make_request = [MixpanelLexiconSchemasMakeRequest::class, 'call'];
+    $u->make_response = [MixpanelLexiconSchemasMakeResponse::class, 'call'];
+    $u->make_result = [MixpanelLexiconSchemasMakeResult::class, 'call'];
+    $u->make_point = [MixpanelLexiconSchemasMakePoint::class, 'call'];
+    $u->make_spec = [MixpanelLexiconSchemasMakeSpec::class, 'call'];
+    $u->make_url = [MixpanelLexiconSchemasMakeUrl::class, 'call'];
+    $u->param = [MixpanelLexiconSchemasParam::class, 'call'];
+    $u->prepare_auth = [MixpanelLexiconSchemasPrepareAuth::class, 'call'];
+    $u->prepare_body = [MixpanelLexiconSchemasPrepareBody::class, 'call'];
+    $u->prepare_headers = [MixpanelLexiconSchemasPrepareHeaders::class, 'call'];
+    $u->prepare_method = [MixpanelLexiconSchemasPrepareMethod::class, 'call'];
+    $u->prepare_params = [MixpanelLexiconSchemasPrepareParams::class, 'call'];
+    $u->prepare_path = [MixpanelLexiconSchemasPreparePath::class, 'call'];
+    $u->prepare_query = [MixpanelLexiconSchemasPrepareQuery::class, 'call'];
+    $u->graphql_body = [MixpanelLexiconSchemasGraphql::class, 'body'];
+    $u->graphql_errors = [MixpanelLexiconSchemasGraphql::class, 'errors'];
+    $u->result_basic = [MixpanelLexiconSchemasResultBasic::class, 'call'];
+    $u->result_body = [MixpanelLexiconSchemasResultBody::class, 'call'];
+    $u->result_headers = [MixpanelLexiconSchemasResultHeaders::class, 'call'];
+    $u->transform_request = [MixpanelLexiconSchemasTransformRequest::class, 'call'];
+    $u->transform_response = [MixpanelLexiconSchemasTransformResponse::class, 'call'];
+});
