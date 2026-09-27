@@ -37,7 +37,7 @@ const SDK_NAME = 'MixpanelLexiconSchemasSDK'
 
 // A fixture for every entity, so list()/load() resolve offline with no
 // network. Snippet client construction is rewritten to seed this.
-const TEST_SEED = {"entity":{"batch_upload_schema":{"test01":{"id":"test01"}},"project":{"test01":{"id":"test01"}},"schema":{"test01":{"id":"test01"}},"upload_schema":{"test01":{"id":"test01"}}}}
+const TEST_SEED = {"entity":{"batch_upload_schema":{"test01":{"id":"test01"}},"schema":{"test01":{"id":"test01"}},"upload_schema":{"test01":{"id":"test01"}}}}
 const SEED_ARG = JSON.stringify(TEST_SEED)
 const SEEDED_CTOR = SDK_NAME + '.test(' + SEED_ARG + ')'
 

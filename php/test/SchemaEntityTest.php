@@ -121,7 +121,7 @@ function schema_basic_setup($extra)
 
     // Generate idmap.
     $idmap = [];
-    foreach (["schema01", "schema02", "schema03", "project01", "project02", "project03", "entity_type01"] as $k) {
+    foreach (["schema01", "schema02", "schema03", "project01", "entity_type01"] as $k) {
         $idmap[$k] = strtoupper($k);
     }
 

@@ -1,5 +1,4 @@
 import { BatchUploadSchemaEntity } from './entity/BatchUploadSchemaEntity';
-import { ProjectEntity } from './entity/ProjectEntity';
 import { SchemaEntity } from './entity/SchemaEntity';
 import { UploadSchemaEntity } from './entity/UploadSchemaEntity';
 export type * from './MixpanelLexiconSchemasTypes';
@@ -48,7 +47,6 @@ declare class MixpanelLexiconSchemasSDK {
     }>;
     graphql(query: string, variables?: any, ctrl?: any): Promise<any>;
     BatchUploadSchema(entopts?: Record<string, any>): BatchUploadSchemaEntity;
-    Project(entopts?: Record<string, any>): ProjectEntity;
     Schema(entopts?: Record<string, any>): SchemaEntity;
     UploadSchema(entopts?: Record<string, any>): UploadSchemaEntity;
     static test(testoptsarg?: any, sdkoptsarg?: any): MixpanelLexiconSchemasSDK;

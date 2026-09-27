@@ -68,7 +68,7 @@ def _upload_schema_basic_setup(extra):
 
     # Generate idmap via transform.
     idmap = vs.transform(
-        ["upload_schema01", "upload_schema02", "upload_schema03", "project01", "project02", "project03", "schema01", "schema02", "schema03", "entity_type01", "name01"],
+        ["upload_schema01", "upload_schema02", "upload_schema03", "schema01", "schema02", "schema03", "entity_type01", "name01", "project01"],
         {
             "`$PACK`": ["", {
                 "`$KEY`": "`$COPY`",

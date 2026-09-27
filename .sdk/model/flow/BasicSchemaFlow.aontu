@@ -1,0 +1,50 @@
+# BasicSchemaFlow
+
+main: kit: flow: BasicSchemaFlow:
+{
+  entity: "schema",
+  kind: "basic",
+  name: "BasicSchemaFlow",
+  step: [
+    {
+      m: {
+        project_id: "project01"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "schema_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "schema_ref01",
+        srcdatavar: "schema_ref01_data",
+        suffix: "_dt0"
+      }
+
+      m: {
+        entity_type: "entity_type01",
+        id: "schema01",
+        project_id: "project01"
+      }
+
+      o: "load",
+      v: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-schema_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicSchemaFlow"
+}

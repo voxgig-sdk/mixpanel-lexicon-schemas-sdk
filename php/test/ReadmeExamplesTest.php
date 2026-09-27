@@ -41,7 +41,6 @@ class ReadmeExamplesTest extends TestCase
     // Entity accessor (\$client->Name()) => fixture storage key (lowercase name).
     private const ENTITIES = [
         "BatchUploadSchema" => "batch_upload_schema",
-        "Project" => "project",
         "Schema" => "schema",
         "UploadSchema" => "upload_schema",
     ];

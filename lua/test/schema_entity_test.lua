@@ -126,7 +126,7 @@ function schema_basic_setup(extra)
 
   -- Generate idmap via transform.
   local idmap = vs.transform(
-    { "schema01", "schema02", "schema03", "project01", "project02", "project03", "entity_type01" },
+    { "schema01", "schema02", "schema03", "project01", "entity_type01" },
     {
       ["`$PACK`"] = { "", {
         ["`$KEY`"] = "`$COPY`",

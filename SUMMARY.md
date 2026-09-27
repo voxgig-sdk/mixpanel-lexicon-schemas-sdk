@@ -6,7 +6,7 @@ Use schemas to sync your data dictionary with Mixpanel. Schemas can be used to p
 
 This guide introduces the API, the client libraries, and the companion tools in this repository. Start with the API capabilities, choose a client for your application, and use the linked reference when you need exact request and response details.
 
-The selected API surface contains 4 entities and 8 HTTP routes. There are 6 SDK targets and 2 companion tools.
+The selected API surface contains 3 entities and 8 HTTP routes. There are 6 SDK targets and 2 companion tools.
 
 An entity groups related API operations. An operation can have several routes with different inputs or authentication requirements. The SDK exposes the entity and its operations using the conventions of the selected language.
 
@@ -24,10 +24,6 @@ Key fields to recognise:
 - `deleted`: The number of entries that were deleted (on applicable if `truncate: true`)
 - `entries`: The list of schema entries to upload
 - `truncate`: If true, delete your entire data dictionary before inserting these entries.
-
-### [Project](docs/api/project.html)
-
-SDK operations: .
 
 ### [Schema](docs/api/schema.html)
 
@@ -74,11 +70,11 @@ Use this map to locate a capability. Consult the entity reference before supplyi
 
 The default credential is sent in the `Authorization` header with the `Basic` prefix.
 
-OAuth Token
+Service Account
 
 Project Secret
 
-Service Account
+OAuth Token
 
 Check authentication for the route you plan to call. A route that declares no authentication can be used without credentials; this does not change the requirements of other routes. Keep credentials in environment variables or a configured secret provider, and keep them out of source control and logs.
 

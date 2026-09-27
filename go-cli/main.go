@@ -20,7 +20,7 @@ import (
 const prompt = "mixpanel-lexicon-schemas"
 
 // entitiesHelp is the space-separated entity list shown by /help.
-const entitiesHelp = "batch_upload_schema project schema upload_schema"
+const entitiesHelp = "batch_upload_schema schema upload_schema"
 
 func main() {
 	os.Exit(run(os.Args[1:], os.Stdin, os.Stdout, os.Stderr))

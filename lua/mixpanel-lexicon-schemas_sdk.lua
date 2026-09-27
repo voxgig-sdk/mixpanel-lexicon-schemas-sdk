@@ -367,20 +367,6 @@ function MixpanelLexiconSchemasSDK:BatchUploadSchema(data)
 end
 
 
--- Idiomatic facade: client:Project():list() / client:Project():load({ id = ... })
--- Entity access is capitalised (PascalCase) for parity with the other SDKs.
-function MixpanelLexiconSchemasSDK:Project(data)
-  local EntityMod = require("entity.project_entity")
-  if data == nil then
-    if self._project == nil then
-      self._project = EntityMod.new(self, nil)
-    end
-    return self._project
-  end
-  return EntityMod.new(self, data)
-end
-
-
 -- Idiomatic facade: client:Schema():list() / client:Schema():load({ id = ... })
 -- Entity access is capitalised (PascalCase) for parity with the other SDKs.
 function MixpanelLexiconSchemasSDK:Schema(data)

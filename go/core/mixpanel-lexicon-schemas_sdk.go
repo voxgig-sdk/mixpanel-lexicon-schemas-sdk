@@ -264,7 +264,6 @@ func (sdk *MixpanelLexiconSchemasSDK) rawRequest(fetchargs map[string]any) (map[
 		if !noBody {
 			if jf := vs.GetProp(fm, "json"); jf != nil {
 				if f, ok := jf.(func() any); ok {
-					// f() returns nil on parse error in our fetcher.
 					jsonData = f()
 				}
 			}
@@ -281,17 +280,6 @@ func (sdk *MixpanelLexiconSchemasSDK) rawRequest(fetchargs map[string]any) (map[
 	return map[string]any{"ok": false, "err": ctx.MakeError("direct_invalid", "invalid response type")}, nil
 }
 
-// Raw GraphQL access: the pressure valve that makes the generated surface's
-// deliberate omissions (per-call selection sets, typed filter builders,
-// batching, subscriptions) livable — the whole schema stays reachable.
-//
-// Thin wrapper over the same prepare/fetch path Direct uses, with the one
-// thing raw Direct cannot do for GraphQL: a GraphQL failure rides HTTP 200
-// as a top-level `errors` array, so status alone would report a failed query
-// as ok.
-//
-// NOTE: like Direct, this bypasses the feature pipeline — no retry,
-// ratelimit or paging features apply.
 func (sdk *MixpanelLexiconSchemasSDK) Graphql(
 	query string, variables map[string]any, ctrl map[string]any,
 ) (map[string]any, error) {
@@ -343,14 +331,6 @@ func (sdk *MixpanelLexiconSchemasSDK) Graphql(
 // client.BatchUploadSchema(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *MixpanelLexiconSchemasSDK) BatchUploadSchema(data map[string]any) MixpanelLexiconSchemasEntity {
 	return NewBatchUploadSchemaEntityFunc(sdk, data)
-}
-
-
-// Project returns a Project entity bound to this client.
-// Idiomatic usage: client.Project(nil).List(nil, nil) or
-// client.Project(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *MixpanelLexiconSchemasSDK) Project(data map[string]any) MixpanelLexiconSchemasEntity {
-	return NewProjectEntityFunc(sdk, data)
 }
 
 

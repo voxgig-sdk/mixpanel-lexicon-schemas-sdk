@@ -166,7 +166,7 @@ func schemaBasicSetup(extra map[string]any) *entityTestSetup {
 
 	// Generate idmap via transform, matching TS pattern.
 	idmap, _ := vs.Transform(
-		[]any{"schema01", "schema02", "schema03", "project01", "project02", "project03", "entity_type01"},
+		[]any{"schema01", "schema02", "schema03", "project01", "entity_type01"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
 				"`$KEY`": "`$COPY`",

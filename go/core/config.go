@@ -160,7 +160,6 @@ func MakeConfig() map[string]any {
 			},
 			"entity": map[string]any{
 				"batch_upload_schema": map[string]any{},
-				"project": map[string]any{},
 				"schema": map[string]any{},
 				"upload_schema": map[string]any{},
 			},
@@ -170,24 +169,28 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "added",
-						"short": "The number of entries that were inserted",
+						"title": "Added",
 						"type": "`$INTEGER`",
+						"short": "The number of entries that were inserted",
 					},
 					map[string]any{
 						"name": "deleted",
-						"short": "The number of entries that were deleted (on applicable if `truncate: true`)",
+						"title": "Deleted",
 						"type": "`$INTEGER`",
+						"short": "The number of entries that were deleted (on applicable if `truncate: true`)",
 					},
 					map[string]any{
 						"name": "entries",
+						"title": "Entries",
+						"type": "`$ARRAY`",
 						"req": true,
 						"short": "The list of schema entries to upload",
-						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "truncate",
-						"short": "If true, delete your entire data dictionary before inserting these entries.",
+						"title": "Truncate",
 						"type": "`$BOOLEAN`",
+						"short": "If true, delete your entire data dictionary before inserting these entries.",
 					},
 				},
 				"name": "batch_upload_schema",
@@ -197,25 +200,9 @@ func MakeConfig() map[string]any {
 						"name": "create",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "project_id",
-											"orig": "project_id",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "POST",
 								"orig": "/projects/{projectId}/schemas",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"projectId": "project_id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "projects",
@@ -227,9 +214,14 @@ func MakeConfig() map[string]any {
 										"lit": "schemas",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"project_id",
+								"parts": []any{
+									"projects",
+									"{project_id}",
+									"schemas",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"projectId": "project_id",
 									},
 								},
 								"transform": map[string]any{
@@ -239,27 +231,26 @@ func MakeConfig() map[string]any {
 									},
 									"res": "`body.results`",
 								},
-								"parts": []any{
-									"projects",
-									"{project_id}",
-									"schemas",
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "project_id",
+											"orig": "project_id",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"project_id",
+									},
 								},
 							},
 						},
 					},
 				},
-				"relations": map[string]any{
-					"ancestors": []any{
-						[]any{
-							"project",
-						},
-					},
-				},
-			},
-			"project": map[string]any{
-				"fields": []any{},
-				"name": "project",
-				"op": map[string]any{},
 				"relations": map[string]any{
 					"ancestors": []any{},
 				},
@@ -268,45 +259,54 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "description",
-						"short": "The entity description",
+						"title": "Description",
 						"type": "`$STRING`",
+						"short": "The entity description",
 					},
 					map[string]any{
 						"name": "entityType",
-						"req": true,
+						"title": "Entity Type",
 						"type": "`$STRING`",
+						"req": true,
 					},
 					map[string]any{
 						"name": "id",
+						"title": "Id",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "metadata",
+						"title": "Metadata",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "name",
+						"title": "Name",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "The entity name (eg: Added To Cart)",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "properties",
-						"short": "The list of properties that should be included on an instance of this entity",
+						"title": "Properties",
 						"type": "`$OBJECT`",
+						"short": "The list of properties that should be included on an instance of this entity",
 					},
 					map[string]any{
 						"name": "results",
+						"title": "Results",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "schemaJson",
+						"title": "Schema Json",
+						"type": "`$OBJECT`",
 						"req": true,
 						"short": "The schema for the entity",
-						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "status",
+						"title": "Status",
 						"type": "`$STRING`",
 					},
 				},
@@ -321,25 +321,9 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "project_id",
-											"orig": "project_id",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/projects/{projectId}/schemas",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"projectId": "project_id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "projects",
@@ -351,19 +335,35 @@ func MakeConfig() map[string]any {
 										"lit": "schemas",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"project_id",
+								"parts": []any{
+									"projects",
+									"{project_id}",
+									"schemas",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"projectId": "project_id",
 									},
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.results`",
 								},
-								"parts": []any{
-									"projects",
-									"{project_id}",
-									"schemas",
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "project_id",
+											"orig": "project_id",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"project_id",
+									},
 								},
 							},
 						},
@@ -373,41 +373,9 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "id",
-											"orig": "entity_type",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "project_id",
-											"orig": "project_id",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-									},
-									"query": []any{
-										map[string]any{
-											"kind": "query",
-											"name": "entity_name",
-											"orig": "entity_name",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/projects/{projectId}/schemas/{entityType}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"entityType": "id",
-										"projectId": "project_id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "projects",
@@ -422,6 +390,48 @@ func MakeConfig() map[string]any {
 										"var": "id",
 									},
 								},
+								"parts": []any{
+									"projects",
+									"{project_id}",
+									"schemas",
+									"{id}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"entityType": "id",
+										"projectId": "project_id",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "id",
+											"orig": "entity_type",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "project_id",
+											"orig": "project_id",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+									"query": []any{
+										map[string]any{
+											"name": "entity_name",
+											"orig": "entity_name",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"entity_name",
@@ -429,52 +439,11 @@ func MakeConfig() map[string]any {
 										"project_id",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"projects",
-									"{project_id}",
-									"schemas",
-									"{id}",
-								},
 							},
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "entity_type",
-											"orig": "entity_type",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "name",
-											"orig": "name",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "project_id",
-											"orig": "project_id",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/projects/{projectId}/schemas/{entityType}/{name}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"entityType": "entity_type",
-										"projectId": "project_id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "projects",
@@ -492,23 +461,54 @@ func MakeConfig() map[string]any {
 										"var": "name",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"entity_type",
-										"name",
-										"project_id",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"projects",
 									"{project_id}",
 									"schemas",
 									"{entity_type}",
 									"{name}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"entityType": "entity_type",
+										"projectId": "project_id",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "entity_type",
+											"orig": "entity_type",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "name",
+											"orig": "name",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "project_id",
+											"orig": "project_id",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"entity_type",
+										"name",
+										"project_id",
+									},
 								},
 							},
 						},
@@ -518,41 +518,9 @@ func MakeConfig() map[string]any {
 						"name": "remove",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "id",
-											"orig": "entity_type",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "project_id",
-											"orig": "project_id",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-									},
-									"query": []any{
-										map[string]any{
-											"kind": "query",
-											"name": "entity_name",
-											"orig": "entity_name",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "DELETE",
 								"orig": "/projects/{projectId}/schemas/{entityType}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"entityType": "id",
-										"projectId": "project_id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "projects",
@@ -567,6 +535,48 @@ func MakeConfig() map[string]any {
 										"var": "id",
 									},
 								},
+								"parts": []any{
+									"projects",
+									"{project_id}",
+									"schemas",
+									"{id}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"entityType": "id",
+										"projectId": "project_id",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.results`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "id",
+											"orig": "entity_type",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "project_id",
+											"orig": "project_id",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+									"query": []any{
+										map[string]any{
+											"name": "entity_name",
+											"orig": "entity_name",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"entity_name",
@@ -574,52 +584,11 @@ func MakeConfig() map[string]any {
 										"project_id",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body.results`",
-								},
-								"parts": []any{
-									"projects",
-									"{project_id}",
-									"schemas",
-									"{id}",
-								},
 							},
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "entity_type",
-											"orig": "entity_type",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "name",
-											"orig": "name",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "project_id",
-											"orig": "project_id",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "DELETE",
 								"orig": "/projects/{projectId}/schemas/{entityType}/{name}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"entityType": "entity_type",
-										"projectId": "project_id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "projects",
@@ -637,17 +606,6 @@ func MakeConfig() map[string]any {
 										"var": "name",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"entity_type",
-										"name",
-										"project_id",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body.results`",
-								},
 								"parts": []any{
 									"projects",
 									"{project_id}",
@@ -655,27 +613,53 @@ func MakeConfig() map[string]any {
 									"{entity_type}",
 									"{name}",
 								},
-							},
-							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "project_id",
-											"orig": "project_id",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-									},
-								},
-								"kind": "http",
-								"method": "DELETE",
-								"orig": "/projects/{projectId}/schemas",
 								"rename": map[string]any{
 									"param": map[string]any{
+										"entityType": "entity_type",
 										"projectId": "project_id",
 									},
 								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.results`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "entity_type",
+											"orig": "entity_type",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "name",
+											"orig": "name",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "project_id",
+											"orig": "project_id",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"entity_type",
+										"name",
+										"project_id",
+									},
+								},
+							},
+							map[string]any{
+								"kind": "http",
+								"method": "DELETE",
+								"orig": "/projects/{projectId}/schemas",
 								"segments": []any{
 									map[string]any{
 										"lit": "projects",
@@ -687,54 +671,66 @@ func MakeConfig() map[string]any {
 										"lit": "schemas",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"project_id",
+								"parts": []any{
+									"projects",
+									"{project_id}",
+									"schemas",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"projectId": "project_id",
 									},
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.results`",
 								},
-								"parts": []any{
-									"projects",
-									"{project_id}",
-									"schemas",
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "project_id",
+											"orig": "project_id",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"project_id",
+									},
 								},
 							},
 						},
 					},
 				},
 				"relations": map[string]any{
-					"ancestors": []any{
-						[]any{
-							"project",
-						},
-						[]any{
-							"project",
-							"schema",
-						},
-					},
+					"ancestors": []any{},
 				},
 			},
 			"upload_schema": map[string]any{
 				"fields": []any{
 					map[string]any{
 						"name": "description",
-						"short": "The entity description",
+						"title": "Description",
 						"type": "`$STRING`",
+						"short": "The entity description",
 					},
 					map[string]any{
 						"name": "metadata",
+						"title": "Metadata",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "properties",
-						"short": "The list of properties that should be included on an instance of this entity",
+						"title": "Properties",
 						"type": "`$OBJECT`",
+						"short": "The list of properties that should be included on an instance of this entity",
 					},
 					map[string]any{
 						"name": "status",
+						"title": "Status",
 						"type": "`$STRING`",
 					},
 				},
@@ -745,40 +741,9 @@ func MakeConfig() map[string]any {
 						"name": "create",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "entity_type",
-											"orig": "entity_type",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "name",
-											"orig": "name",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "project_id",
-											"orig": "project_id",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "POST",
 								"orig": "/projects/{projectId}/schemas/{entityType}/{name}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"entityType": "entity_type",
-										"projectId": "project_id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "projects",
@@ -796,23 +761,54 @@ func MakeConfig() map[string]any {
 										"var": "name",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"entity_type",
-										"name",
-										"project_id",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"projects",
 									"{project_id}",
 									"schemas",
 									"{entity_type}",
 									"{name}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"entityType": "entity_type",
+										"projectId": "project_id",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "entity_type",
+											"orig": "entity_type",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "name",
+											"orig": "name",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "project_id",
+											"orig": "project_id",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"entity_type",
+										"name",
+										"project_id",
+									},
 								},
 							},
 						},
@@ -821,8 +817,7 @@ func MakeConfig() map[string]any {
 				"relations": map[string]any{
 					"ancestors": []any{
 						[]any{
-							"project",
-							"schema",
+							"$.main.kit.entity.schema",
 						},
 					},
 				},

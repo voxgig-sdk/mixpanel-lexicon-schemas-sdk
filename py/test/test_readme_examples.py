@@ -77,7 +77,6 @@ _CLIENT_VARS = ("client", "sdk")
 # The API's capitalised semantic entities -> lowercase fixture key.
 _ENTITIES = {
     "BatchUploadSchema": "batch_upload_schema",
-    "Project": "project",
     "Schema": "schema",
     "UploadSchema": "upload_schema",
 }

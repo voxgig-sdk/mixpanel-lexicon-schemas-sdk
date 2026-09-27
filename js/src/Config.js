@@ -221,9 +221,6 @@ class Config {
         batch_upload_schema: {
         },
   
-        project: {
-        },
-  
         schema: {
         },
   
@@ -239,24 +236,28 @@ class Config {
       "fields": [
         {
           "name": "added",
-          "short": "The number of entries that were inserted",
-          "type": "`$INTEGER`"
+          "title": "Added",
+          "type": "`$INTEGER`",
+          "short": "The number of entries that were inserted"
         },
         {
           "name": "deleted",
-          "short": "The number of entries that were deleted (on applicable if `truncate: true`)",
-          "type": "`$INTEGER`"
+          "title": "Deleted",
+          "type": "`$INTEGER`",
+          "short": "The number of entries that were deleted (on applicable if `truncate: true`)"
         },
         {
           "name": "entries",
+          "title": "Entries",
+          "type": "`$ARRAY`",
           "req": true,
-          "short": "The list of schema entries to upload",
-          "type": "`$ARRAY`"
+          "short": "The list of schema entries to upload"
         },
         {
           "name": "truncate",
-          "short": "If true, delete your entire data dictionary before inserting these entries.",
-          "type": "`$BOOLEAN`"
+          "title": "Truncate",
+          "type": "`$BOOLEAN`",
+          "short": "If true, delete your entire data dictionary before inserting these entries."
         }
       ],
       "name": "batch_upload_schema",
@@ -266,25 +267,9 @@ class Config {
           "name": "create",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "project_id",
-                    "orig": "project_id",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "POST",
               "orig": "/projects/{projectId}/schemas",
-              "rename": {
-                "param": {
-                  "projectId": "project_id"
-                }
-              },
               "segments": [
                 {
                   "lit": "projects"
@@ -296,10 +281,15 @@ class Config {
                   "lit": "schemas"
                 }
               ],
-              "select": {
-                "exist": [
-                  "project_id"
-                ]
+              "parts": [
+                "projects",
+                "{project_id}",
+                "schemas"
+              ],
+              "rename": {
+                "param": {
+                  "projectId": "project_id"
+                }
               },
               "transform": {
                 "req": {
@@ -308,27 +298,26 @@ class Config {
                 },
                 "res": "`body.results`"
               },
-              "parts": [
-                "projects",
-                "{project_id}",
-                "schemas"
-              ]
+              "args": {
+                "params": [
+                  {
+                    "name": "project_id",
+                    "orig": "project_id",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "project_id"
+                ]
+              }
             }
           ]
         }
       },
-      "relations": {
-        "ancestors": [
-          [
-            "project"
-          ]
-        ]
-      }
-    },
-    "project": {
-      "fields": [],
-      "name": "project",
-      "op": {},
       "relations": {
         "ancestors": []
       }
@@ -337,45 +326,54 @@ class Config {
       "fields": [
         {
           "name": "description",
-          "short": "The entity description",
-          "type": "`$STRING`"
+          "title": "Description",
+          "type": "`$STRING`",
+          "short": "The entity description"
         },
         {
           "name": "entityType",
-          "req": true,
-          "type": "`$STRING`"
+          "title": "Entity Type",
+          "type": "`$STRING`",
+          "req": true
         },
         {
           "name": "id",
+          "title": "Id",
           "type": "`$STRING`"
         },
         {
           "name": "metadata",
+          "title": "Metadata",
           "type": "`$OBJECT`"
         },
         {
           "name": "name",
+          "title": "Name",
+          "type": "`$STRING`",
           "req": true,
-          "short": "The entity name (eg: Added To Cart)",
-          "type": "`$STRING`"
+          "short": "The entity name (eg: Added To Cart)"
         },
         {
           "name": "properties",
-          "short": "The list of properties that should be included on an instance of this entity",
-          "type": "`$OBJECT`"
+          "title": "Properties",
+          "type": "`$OBJECT`",
+          "short": "The list of properties that should be included on an instance of this entity"
         },
         {
           "name": "results",
+          "title": "Results",
           "type": "`$ARRAY`"
         },
         {
           "name": "schemaJson",
+          "title": "Schema Json",
+          "type": "`$OBJECT`",
           "req": true,
-          "short": "The schema for the entity",
-          "type": "`$OBJECT`"
+          "short": "The schema for the entity"
         },
         {
           "name": "status",
+          "title": "Status",
           "type": "`$STRING`"
         }
       ],
@@ -390,25 +388,9 @@ class Config {
           "name": "list",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "project_id",
-                    "orig": "project_id",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/projects/{projectId}/schemas",
-              "rename": {
-                "param": {
-                  "projectId": "project_id"
-                }
-              },
               "segments": [
                 {
                   "lit": "projects"
@@ -420,20 +402,36 @@ class Config {
                   "lit": "schemas"
                 }
               ],
-              "select": {
-                "exist": [
-                  "project_id"
-                ]
+              "parts": [
+                "projects",
+                "{project_id}",
+                "schemas"
+              ],
+              "rename": {
+                "param": {
+                  "projectId": "project_id"
+                }
               },
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.results`"
               },
-              "parts": [
-                "projects",
-                "{project_id}",
-                "schemas"
-              ]
+              "args": {
+                "params": [
+                  {
+                    "name": "project_id",
+                    "orig": "project_id",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "project_id"
+                ]
+              }
             }
           ]
         },
@@ -442,41 +440,9 @@ class Config {
           "name": "load",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "id",
-                    "orig": "entity_type",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "kind": "param",
-                    "name": "project_id",
-                    "orig": "project_id",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
-                  }
-                ],
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "entity_name",
-                    "orig": "entity_name",
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/projects/{projectId}/schemas/{entityType}",
-              "rename": {
-                "param": {
-                  "entityType": "id",
-                  "projectId": "project_id"
-                }
-              },
               "segments": [
                 {
                   "lit": "projects"
@@ -491,59 +457,60 @@ class Config {
                   "var": "id"
                 }
               ],
+              "parts": [
+                "projects",
+                "{project_id}",
+                "schemas",
+                "{id}"
+              ],
+              "rename": {
+                "param": {
+                  "entityType": "id",
+                  "projectId": "project_id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "entity_type",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "project_id",
+                    "orig": "project_id",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "entity_name",
+                    "orig": "entity_name",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  }
+                ]
+              },
               "select": {
                 "exist": [
                   "entity_name",
                   "id",
                   "project_id"
                 ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "parts": [
-                "projects",
-                "{project_id}",
-                "schemas",
-                "{id}"
-              ]
+              }
             },
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "entity_type",
-                    "orig": "entity_type",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "kind": "param",
-                    "name": "name",
-                    "orig": "name",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "kind": "param",
-                    "name": "project_id",
-                    "orig": "project_id",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/projects/{projectId}/schemas/{entityType}/{name}",
-              "rename": {
-                "param": {
-                  "entityType": "entity_type",
-                  "projectId": "project_id"
-                }
-              },
               "segments": [
                 {
                   "lit": "projects"
@@ -561,24 +528,55 @@ class Config {
                   "var": "name"
                 }
               ],
-              "select": {
-                "exist": [
-                  "entity_type",
-                  "name",
-                  "project_id"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "projects",
                 "{project_id}",
                 "schemas",
                 "{entity_type}",
                 "{name}"
-              ]
+              ],
+              "rename": {
+                "param": {
+                  "entityType": "entity_type",
+                  "projectId": "project_id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "entity_type",
+                    "orig": "entity_type",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "name",
+                    "orig": "name",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "project_id",
+                    "orig": "project_id",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "entity_type",
+                  "name",
+                  "project_id"
+                ]
+              }
             }
           ]
         },
@@ -587,41 +585,9 @@ class Config {
           "name": "remove",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "id",
-                    "orig": "entity_type",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "kind": "param",
-                    "name": "project_id",
-                    "orig": "project_id",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
-                  }
-                ],
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "entity_name",
-                    "orig": "entity_name",
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "DELETE",
               "orig": "/projects/{projectId}/schemas/{entityType}",
-              "rename": {
-                "param": {
-                  "entityType": "id",
-                  "projectId": "project_id"
-                }
-              },
               "segments": [
                 {
                   "lit": "projects"
@@ -636,59 +602,60 @@ class Config {
                   "var": "id"
                 }
               ],
+              "parts": [
+                "projects",
+                "{project_id}",
+                "schemas",
+                "{id}"
+              ],
+              "rename": {
+                "param": {
+                  "entityType": "id",
+                  "projectId": "project_id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.results`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "entity_type",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "project_id",
+                    "orig": "project_id",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "entity_name",
+                    "orig": "entity_name",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  }
+                ]
+              },
               "select": {
                 "exist": [
                   "entity_name",
                   "id",
                   "project_id"
                 ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body.results`"
-              },
-              "parts": [
-                "projects",
-                "{project_id}",
-                "schemas",
-                "{id}"
-              ]
+              }
             },
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "entity_type",
-                    "orig": "entity_type",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "kind": "param",
-                    "name": "name",
-                    "orig": "name",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "kind": "param",
-                    "name": "project_id",
-                    "orig": "project_id",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "DELETE",
               "orig": "/projects/{projectId}/schemas/{entityType}/{name}",
-              "rename": {
-                "param": {
-                  "entityType": "entity_type",
-                  "projectId": "project_id"
-                }
-              },
               "segments": [
                 {
                   "lit": "projects"
@@ -706,45 +673,60 @@ class Config {
                   "var": "name"
                 }
               ],
-              "select": {
-                "exist": [
-                  "entity_type",
-                  "name",
-                  "project_id"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body.results`"
-              },
               "parts": [
                 "projects",
                 "{project_id}",
                 "schemas",
                 "{entity_type}",
                 "{name}"
-              ]
-            },
-            {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "project_id",
-                    "orig": "project_id",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
-                  }
-                ]
-              },
-              "kind": "http",
-              "method": "DELETE",
-              "orig": "/projects/{projectId}/schemas",
+              ],
               "rename": {
                 "param": {
+                  "entityType": "entity_type",
                   "projectId": "project_id"
                 }
               },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.results`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "entity_type",
+                    "orig": "entity_type",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "name",
+                    "orig": "name",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "project_id",
+                    "orig": "project_id",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "entity_type",
+                  "name",
+                  "project_id"
+                ]
+              }
+            },
+            {
+              "kind": "http",
+              "method": "DELETE",
+              "orig": "/projects/{projectId}/schemas",
               "segments": [
                 {
                   "lit": "projects"
@@ -756,54 +738,66 @@ class Config {
                   "lit": "schemas"
                 }
               ],
-              "select": {
-                "exist": [
-                  "project_id"
-                ]
+              "parts": [
+                "projects",
+                "{project_id}",
+                "schemas"
+              ],
+              "rename": {
+                "param": {
+                  "projectId": "project_id"
+                }
               },
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.results`"
               },
-              "parts": [
-                "projects",
-                "{project_id}",
-                "schemas"
-              ]
+              "args": {
+                "params": [
+                  {
+                    "name": "project_id",
+                    "orig": "project_id",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "project_id"
+                ]
+              }
             }
           ]
         }
       },
       "relations": {
-        "ancestors": [
-          [
-            "project"
-          ],
-          [
-            "project",
-            "schema"
-          ]
-        ]
+        "ancestors": []
       }
     },
     "upload_schema": {
       "fields": [
         {
           "name": "description",
-          "short": "The entity description",
-          "type": "`$STRING`"
+          "title": "Description",
+          "type": "`$STRING`",
+          "short": "The entity description"
         },
         {
           "name": "metadata",
+          "title": "Metadata",
           "type": "`$OBJECT`"
         },
         {
           "name": "properties",
-          "short": "The list of properties that should be included on an instance of this entity",
-          "type": "`$OBJECT`"
+          "title": "Properties",
+          "type": "`$OBJECT`",
+          "short": "The list of properties that should be included on an instance of this entity"
         },
         {
           "name": "status",
+          "title": "Status",
           "type": "`$STRING`"
         }
       ],
@@ -814,40 +808,9 @@ class Config {
           "name": "create",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "entity_type",
-                    "orig": "entity_type",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "kind": "param",
-                    "name": "name",
-                    "orig": "name",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "kind": "param",
-                    "name": "project_id",
-                    "orig": "project_id",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "POST",
               "orig": "/projects/{projectId}/schemas/{entityType}/{name}",
-              "rename": {
-                "param": {
-                  "entityType": "entity_type",
-                  "projectId": "project_id"
-                }
-              },
               "segments": [
                 {
                   "lit": "projects"
@@ -865,24 +828,55 @@ class Config {
                   "var": "name"
                 }
               ],
-              "select": {
-                "exist": [
-                  "entity_type",
-                  "name",
-                  "project_id"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "projects",
                 "{project_id}",
                 "schemas",
                 "{entity_type}",
                 "{name}"
-              ]
+              ],
+              "rename": {
+                "param": {
+                  "entityType": "entity_type",
+                  "projectId": "project_id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "entity_type",
+                    "orig": "entity_type",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "name",
+                    "orig": "name",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "project_id",
+                    "orig": "project_id",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "entity_type",
+                  "name",
+                  "project_id"
+                ]
+              }
             }
           ]
         }
@@ -890,8 +884,7 @@ class Config {
       "relations": {
         "ancestors": [
           [
-            "project",
-            "schema"
+            "$.main.kit.entity.schema"
           ]
         ]
       }

@@ -1,7 +1,7 @@
 // Typed models for the MixpanelLexiconSchemas SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,10 +14,6 @@ import (
 
 // BatchUploadSchema is the typed data model for the batch_upload_schema entity.
 type BatchUploadSchema struct {
-	Added *int `json:"added,omitempty"`
-	Deleted *int `json:"deleted,omitempty"`
-	Entries []any `json:"entries"`
-	Truncate *bool `json:"truncate,omitempty"`
 }
 
 // BatchUploadSchemaCreateData is the typed request payload for BatchUploadSchema.CreateTyped.
@@ -29,21 +25,8 @@ type BatchUploadSchemaCreateData struct {
 	Truncate *bool `json:"truncate,omitempty"`
 }
 
-// Project is the typed data model for the project entity.
-type Project struct {
-}
-
 // Schema is the typed data model for the schema entity.
 type Schema struct {
-	Description *string `json:"description,omitempty"`
-	EntityType string `json:"entityType"`
-	Id *string `json:"id,omitempty"`
-	Metadata *map[string]any `json:"metadata,omitempty"`
-	Name string `json:"name"`
-	Properties *map[string]any `json:"properties,omitempty"`
-	Results *[]any `json:"results,omitempty"`
-	SchemaJson map[string]any `json:"schemaJson"`
-	Status *string `json:"status,omitempty"`
 }
 
 // SchemaLoadMatch is the typed request payload for Schema.LoadTyped.
@@ -71,10 +54,6 @@ type SchemaRemoveMatch struct {
 
 // UploadSchema is the typed data model for the upload_schema entity.
 type UploadSchema struct {
-	Description *string `json:"description,omitempty"`
-	Metadata *map[string]any `json:"metadata,omitempty"`
-	Properties *map[string]any `json:"properties,omitempty"`
-	Status *string `json:"status,omitempty"`
 }
 
 // UploadSchemaCreateData is the typed request payload for UploadSchema.CreateTyped.

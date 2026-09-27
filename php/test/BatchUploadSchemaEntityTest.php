@@ -66,7 +66,7 @@ function batch_upload_schema_basic_setup($extra)
 
     // Generate idmap.
     $idmap = [];
-    foreach (["batch_upload_schema01", "batch_upload_schema02", "batch_upload_schema03", "project01", "project02", "project03"] as $k) {
+    foreach (["batch_upload_schema01", "batch_upload_schema02", "batch_upload_schema03", "project01"] as $k) {
         $idmap[$k] = strtoupper($k);
     }
 

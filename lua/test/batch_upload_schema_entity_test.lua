@@ -68,7 +68,7 @@ function batch_upload_schema_basic_setup(extra)
 
   -- Generate idmap via transform.
   local idmap = vs.transform(
-    { "batch_upload_schema01", "batch_upload_schema02", "batch_upload_schema03", "project01", "project02", "project03" },
+    { "batch_upload_schema01", "batch_upload_schema02", "batch_upload_schema03", "project01" },
     {
       ["`$PACK`"] = { "", {
         ["`$KEY`"] = "`$COPY`",

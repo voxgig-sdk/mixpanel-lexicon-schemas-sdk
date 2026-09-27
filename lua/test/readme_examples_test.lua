@@ -20,7 +20,7 @@ local SDK_MODULE = "mixpanel-lexicon-schemas_sdk"
 -- A test-mode client seeded with a fixture for every entity. The constructor
 -- of each runnable snippet is rewritten to this form so the offline mock has
 -- data to return.
-local TEST_SEED = '{ entity = { ["batch_upload_schema"] = { ["test01"] = { id = "test01" } }, ["project"] = { ["test01"] = { id = "test01" } }, ["schema"] = { ["test01"] = { id = "test01" } }, ["upload_schema"] = { ["test01"] = { id = "test01" } } } }'
+local TEST_SEED = '{ entity = { ["batch_upload_schema"] = { ["test01"] = { id = "test01" } }, ["schema"] = { ["test01"] = { id = "test01" } }, ["upload_schema"] = { ["test01"] = { id = "test01" } } } }'
 local TEST_CTOR = "sdk.test(" .. TEST_SEED .. ")"
 
 local function script_dir()

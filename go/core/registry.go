@@ -22,8 +22,6 @@ var NewTimeoutFeatureFunc func() Feature
 
 var NewBatchUploadSchemaEntityFunc func(client *MixpanelLexiconSchemasSDK, entopts map[string]any) MixpanelLexiconSchemasEntity
 
-var NewProjectEntityFunc func(client *MixpanelLexiconSchemasSDK, entopts map[string]any) MixpanelLexiconSchemasEntity
-
 var NewSchemaEntityFunc func(client *MixpanelLexiconSchemasSDK, entopts map[string]any) MixpanelLexiconSchemasEntity
 
 var NewUploadSchemaEntityFunc func(client *MixpanelLexiconSchemasSDK, entopts map[string]any) MixpanelLexiconSchemasEntity

@@ -359,24 +359,6 @@ class MixpanelLexiconSchemasSDK
     }
 
 
-    private $_project = null;
-
-    // Canonical facade: $client->Project()->list() / ->load(["id" => ...]).
-    // PHP method names are case-insensitive, so lowercase $client->project()
-    // resolves here too.
-    public function Project($data = null)
-    {
-        require_once __DIR__ . '/entity/project_entity.php';
-        if ($data === null) {
-            if ($this->_project === null) {
-                $this->_project = new ProjectEntity($this, null);
-            }
-            return $this->_project;
-        }
-        return new ProjectEntity($this, $data);
-    }
-
-
     private $_schema = null;
 
     // Canonical facade: $client->Schema()->list() / ->load(["id" => ...]).

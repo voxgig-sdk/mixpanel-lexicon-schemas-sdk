@@ -92,7 +92,7 @@ func batch_upload_schemaBasicSetup(extra map[string]any) *entityTestSetup {
 
 	// Generate idmap via transform, matching TS pattern.
 	idmap, _ := vs.Transform(
-		[]any{"batch_upload_schema01", "batch_upload_schema02", "batch_upload_schema03", "project01", "project02", "project03"},
+		[]any{"batch_upload_schema01", "batch_upload_schema02", "batch_upload_schema03", "project01"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
 				"`$KEY`": "`$COPY`",

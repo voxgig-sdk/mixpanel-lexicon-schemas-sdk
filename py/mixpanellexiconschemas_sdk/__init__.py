@@ -313,12 +313,6 @@ class MixpanelLexiconSchemasSDK:
         return BatchUploadSchemaEntity(self, data)
 
 
-    def Project(self, data=None) -> "ProjectEntity":
-        """Entity factory: client.Project().list() / client.Project().load({"id": ...})."""
-        from mixpanellexiconschemas_sdk.entity.project_entity import ProjectEntity
-        return ProjectEntity(self, data)
-
-
     def Schema(self, data=None) -> "SchemaEntity":
         """Entity factory: client.Schema().list() / client.Schema().load({"id": ...})."""
         from mixpanellexiconschemas_sdk.entity.schema_entity import SchemaEntity
@@ -359,6 +353,5 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from mixpanellexiconschemas_sdk.entity.batch_upload_schema_entity import BatchUploadSchemaEntity
-    from mixpanellexiconschemas_sdk.entity.project_entity import ProjectEntity
     from mixpanellexiconschemas_sdk.entity.schema_entity import SchemaEntity
     from mixpanellexiconschemas_sdk.entity.upload_schema_entity import UploadSchemaEntity

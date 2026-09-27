@@ -56,9 +56,6 @@ func init() {
 	core.NewBatchUploadSchemaEntityFunc = func(client *core.MixpanelLexiconSchemasSDK, entopts map[string]any) core.MixpanelLexiconSchemasEntity {
 		return entity.NewBatchUploadSchemaEntity(client, entopts)
 	}
-	core.NewProjectEntityFunc = func(client *core.MixpanelLexiconSchemasSDK, entopts map[string]any) core.MixpanelLexiconSchemasEntity {
-		return entity.NewProjectEntity(client, entopts)
-	}
 	core.NewSchemaEntityFunc = func(client *core.MixpanelLexiconSchemasSDK, entopts map[string]any) core.MixpanelLexiconSchemasEntity {
 		return entity.NewSchemaEntity(client, entopts)
 	}

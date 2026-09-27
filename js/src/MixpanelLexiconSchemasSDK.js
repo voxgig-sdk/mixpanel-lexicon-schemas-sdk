@@ -1,7 +1,6 @@
 // MixpanelLexiconSchemas Js SDK
 
 const { BatchUploadSchemaEntity } = require('./entity/BatchUploadSchemaEntity')
-const { ProjectEntity } = require('./entity/ProjectEntity')
 const { SchemaEntity } = require('./entity/SchemaEntity')
 const { UploadSchemaEntity } = require('./entity/UploadSchemaEntity')
 
@@ -302,15 +301,6 @@ class MixpanelLexiconSchemasSDK {
   BatchUploadSchema(entopts) {
     const self = this
     return new BatchUploadSchemaEntity(self, entopts)
-  }
-
-
-  // Entity access: `client.Project().list()` / `client.Project().load({ id })`.
-  // The argument is the entity OPTIONS object (passed to the entity
-  // constructor as entopts), not initial entity data.
-  Project(entopts) {
-    const self = this
-    return new ProjectEntity(self, entopts)
   }
 
 

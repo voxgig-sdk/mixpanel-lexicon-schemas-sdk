@@ -182,7 +182,6 @@ class MixpanelLexiconSchemasConfig
         ],
                 "entity" => [
                     "batch_upload_schema" => [],
-                    "project" => [],
                     "schema" => [],
                     "upload_schema" => [],
                 ],
@@ -192,24 +191,28 @@ class MixpanelLexiconSchemasConfig
           'fields' => [
             [
               'name' => 'added',
-              'short' => 'The number of entries that were inserted',
+              'title' => 'Added',
               'type' => '`$INTEGER`',
+              'short' => 'The number of entries that were inserted',
             ],
             [
               'name' => 'deleted',
-              'short' => 'The number of entries that were deleted (on applicable if `truncate: true`)',
+              'title' => 'Deleted',
               'type' => '`$INTEGER`',
+              'short' => 'The number of entries that were deleted (on applicable if `truncate: true`)',
             ],
             [
               'name' => 'entries',
+              'title' => 'Entries',
+              'type' => '`$ARRAY`',
               'req' => true,
               'short' => 'The list of schema entries to upload',
-              'type' => '`$ARRAY`',
             ],
             [
               'name' => 'truncate',
-              'short' => 'If true, delete your entire data dictionary before inserting these entries.',
+              'title' => 'Truncate',
               'type' => '`$BOOLEAN`',
+              'short' => 'If true, delete your entire data dictionary before inserting these entries.',
             ],
           ],
           'name' => 'batch_upload_schema',
@@ -219,25 +222,9 @@ class MixpanelLexiconSchemasConfig
               'name' => 'create',
               'points' => [
                 [
-                  'args' => [
-                    'params' => [
-                      [
-                        'kind' => 'param',
-                        'name' => 'project_id',
-                        'orig' => 'project_id',
-                        'reqd' => true,
-                        'type' => '`$INTEGER`',
-                      ],
-                    ],
-                  ],
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/projects/{projectId}/schemas',
-                  'rename' => [
-                    'param' => [
-                      'projectId' => 'project_id',
-                    ],
-                  ],
                   'segments' => [
                     [
                       'lit' => 'projects',
@@ -249,9 +236,14 @@ class MixpanelLexiconSchemasConfig
                       'lit' => 'schemas',
                     ],
                   ],
-                  'select' => [
-                    'exist' => [
-                      'project_id',
+                  'parts' => [
+                    'projects',
+                    '{project_id}',
+                    'schemas',
+                  ],
+                  'rename' => [
+                    'param' => [
+                      'projectId' => 'project_id',
                     ],
                   ],
                   'transform' => [
@@ -261,27 +253,26 @@ class MixpanelLexiconSchemasConfig
                     ],
                     'res' => '`body.results`',
                   ],
-                  'parts' => [
-                    'projects',
-                    '{project_id}',
-                    'schemas',
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'project_id',
+                        'orig' => 'project_id',
+                        'type' => '`$INTEGER`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'project_id',
+                    ],
                   ],
                 ],
               ],
             ],
           ],
-          'relations' => [
-            'ancestors' => [
-              [
-                'project',
-              ],
-            ],
-          ],
-        ],
-        'project' => [
-          'fields' => [],
-          'name' => 'project',
-          'op' => [],
           'relations' => [
             'ancestors' => [],
           ],
@@ -290,45 +281,54 @@ class MixpanelLexiconSchemasConfig
           'fields' => [
             [
               'name' => 'description',
-              'short' => 'The entity description',
+              'title' => 'Description',
               'type' => '`$STRING`',
+              'short' => 'The entity description',
             ],
             [
               'name' => 'entityType',
-              'req' => true,
+              'title' => 'Entity Type',
               'type' => '`$STRING`',
+              'req' => true,
             ],
             [
               'name' => 'id',
+              'title' => 'Id',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'metadata',
+              'title' => 'Metadata',
               'type' => '`$OBJECT`',
             ],
             [
               'name' => 'name',
+              'title' => 'Name',
+              'type' => '`$STRING`',
               'req' => true,
               'short' => 'The entity name (eg: Added To Cart)',
-              'type' => '`$STRING`',
             ],
             [
               'name' => 'properties',
-              'short' => 'The list of properties that should be included on an instance of this entity',
+              'title' => 'Properties',
               'type' => '`$OBJECT`',
+              'short' => 'The list of properties that should be included on an instance of this entity',
             ],
             [
               'name' => 'results',
+              'title' => 'Results',
               'type' => '`$ARRAY`',
             ],
             [
               'name' => 'schemaJson',
+              'title' => 'Schema Json',
+              'type' => '`$OBJECT`',
               'req' => true,
               'short' => 'The schema for the entity',
-              'type' => '`$OBJECT`',
             ],
             [
               'name' => 'status',
+              'title' => 'Status',
               'type' => '`$STRING`',
             ],
           ],
@@ -343,25 +343,9 @@ class MixpanelLexiconSchemasConfig
               'name' => 'list',
               'points' => [
                 [
-                  'args' => [
-                    'params' => [
-                      [
-                        'kind' => 'param',
-                        'name' => 'project_id',
-                        'orig' => 'project_id',
-                        'reqd' => true,
-                        'type' => '`$INTEGER`',
-                      ],
-                    ],
-                  ],
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/projects/{projectId}/schemas',
-                  'rename' => [
-                    'param' => [
-                      'projectId' => 'project_id',
-                    ],
-                  ],
                   'segments' => [
                     [
                       'lit' => 'projects',
@@ -373,19 +357,35 @@ class MixpanelLexiconSchemasConfig
                       'lit' => 'schemas',
                     ],
                   ],
-                  'select' => [
-                    'exist' => [
-                      'project_id',
+                  'parts' => [
+                    'projects',
+                    '{project_id}',
+                    'schemas',
+                  ],
+                  'rename' => [
+                    'param' => [
+                      'projectId' => 'project_id',
                     ],
                   ],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.results`',
                   ],
-                  'parts' => [
-                    'projects',
-                    '{project_id}',
-                    'schemas',
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'project_id',
+                        'orig' => 'project_id',
+                        'type' => '`$INTEGER`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'project_id',
+                    ],
                   ],
                 ],
               ],
@@ -395,41 +395,9 @@ class MixpanelLexiconSchemasConfig
               'name' => 'load',
               'points' => [
                 [
-                  'args' => [
-                    'params' => [
-                      [
-                        'kind' => 'param',
-                        'name' => 'id',
-                        'orig' => 'entity_type',
-                        'reqd' => true,
-                        'type' => '`$STRING`',
-                      ],
-                      [
-                        'kind' => 'param',
-                        'name' => 'project_id',
-                        'orig' => 'project_id',
-                        'reqd' => true,
-                        'type' => '`$INTEGER`',
-                      ],
-                    ],
-                    'query' => [
-                      [
-                        'kind' => 'query',
-                        'name' => 'entity_name',
-                        'orig' => 'entity_name',
-                        'type' => '`$STRING`',
-                      ],
-                    ],
-                  ],
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/projects/{projectId}/schemas/{entityType}',
-                  'rename' => [
-                    'param' => [
-                      'entityType' => 'id',
-                      'projectId' => 'project_id',
-                    ],
-                  ],
                   'segments' => [
                     [
                       'lit' => 'projects',
@@ -444,6 +412,48 @@ class MixpanelLexiconSchemasConfig
                       'var' => 'id',
                     ],
                   ],
+                  'parts' => [
+                    'projects',
+                    '{project_id}',
+                    'schemas',
+                    '{id}',
+                  ],
+                  'rename' => [
+                    'param' => [
+                      'entityType' => 'id',
+                      'projectId' => 'project_id',
+                    ],
+                  ],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'id',
+                        'orig' => 'entity_type',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                      [
+                        'name' => 'project_id',
+                        'orig' => 'project_id',
+                        'type' => '`$INTEGER`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                    ],
+                    'query' => [
+                      [
+                        'name' => 'entity_name',
+                        'orig' => 'entity_name',
+                        'type' => '`$STRING`',
+                        'kind' => 'query',
+                      ],
+                    ],
+                  ],
                   'select' => [
                     'exist' => [
                       'entity_name',
@@ -451,52 +461,11 @@ class MixpanelLexiconSchemasConfig
                       'project_id',
                     ],
                   ],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
-                  'parts' => [
-                    'projects',
-                    '{project_id}',
-                    'schemas',
-                    '{id}',
-                  ],
                 ],
                 [
-                  'args' => [
-                    'params' => [
-                      [
-                        'kind' => 'param',
-                        'name' => 'entity_type',
-                        'orig' => 'entity_type',
-                        'reqd' => true,
-                        'type' => '`$STRING`',
-                      ],
-                      [
-                        'kind' => 'param',
-                        'name' => 'name',
-                        'orig' => 'name',
-                        'reqd' => true,
-                        'type' => '`$STRING`',
-                      ],
-                      [
-                        'kind' => 'param',
-                        'name' => 'project_id',
-                        'orig' => 'project_id',
-                        'reqd' => true,
-                        'type' => '`$INTEGER`',
-                      ],
-                    ],
-                  ],
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/projects/{projectId}/schemas/{entityType}/{name}',
-                  'rename' => [
-                    'param' => [
-                      'entityType' => 'entity_type',
-                      'projectId' => 'project_id',
-                    ],
-                  ],
                   'segments' => [
                     [
                       'lit' => 'projects',
@@ -514,23 +483,54 @@ class MixpanelLexiconSchemasConfig
                       'var' => 'name',
                     ],
                   ],
-                  'select' => [
-                    'exist' => [
-                      'entity_type',
-                      'name',
-                      'project_id',
-                    ],
-                  ],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
                   'parts' => [
                     'projects',
                     '{project_id}',
                     'schemas',
                     '{entity_type}',
                     '{name}',
+                  ],
+                  'rename' => [
+                    'param' => [
+                      'entityType' => 'entity_type',
+                      'projectId' => 'project_id',
+                    ],
+                  ],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'entity_type',
+                        'orig' => 'entity_type',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                      [
+                        'name' => 'name',
+                        'orig' => 'name',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                      [
+                        'name' => 'project_id',
+                        'orig' => 'project_id',
+                        'type' => '`$INTEGER`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'entity_type',
+                      'name',
+                      'project_id',
+                    ],
                   ],
                 ],
               ],
@@ -540,41 +540,9 @@ class MixpanelLexiconSchemasConfig
               'name' => 'remove',
               'points' => [
                 [
-                  'args' => [
-                    'params' => [
-                      [
-                        'kind' => 'param',
-                        'name' => 'id',
-                        'orig' => 'entity_type',
-                        'reqd' => true,
-                        'type' => '`$STRING`',
-                      ],
-                      [
-                        'kind' => 'param',
-                        'name' => 'project_id',
-                        'orig' => 'project_id',
-                        'reqd' => true,
-                        'type' => '`$INTEGER`',
-                      ],
-                    ],
-                    'query' => [
-                      [
-                        'kind' => 'query',
-                        'name' => 'entity_name',
-                        'orig' => 'entity_name',
-                        'type' => '`$STRING`',
-                      ],
-                    ],
-                  ],
                   'kind' => 'http',
                   'method' => 'DELETE',
                   'orig' => '/projects/{projectId}/schemas/{entityType}',
-                  'rename' => [
-                    'param' => [
-                      'entityType' => 'id',
-                      'projectId' => 'project_id',
-                    ],
-                  ],
                   'segments' => [
                     [
                       'lit' => 'projects',
@@ -589,6 +557,48 @@ class MixpanelLexiconSchemasConfig
                       'var' => 'id',
                     ],
                   ],
+                  'parts' => [
+                    'projects',
+                    '{project_id}',
+                    'schemas',
+                    '{id}',
+                  ],
+                  'rename' => [
+                    'param' => [
+                      'entityType' => 'id',
+                      'projectId' => 'project_id',
+                    ],
+                  ],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body.results`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'id',
+                        'orig' => 'entity_type',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                      [
+                        'name' => 'project_id',
+                        'orig' => 'project_id',
+                        'type' => '`$INTEGER`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                    ],
+                    'query' => [
+                      [
+                        'name' => 'entity_name',
+                        'orig' => 'entity_name',
+                        'type' => '`$STRING`',
+                        'kind' => 'query',
+                      ],
+                    ],
+                  ],
                   'select' => [
                     'exist' => [
                       'entity_name',
@@ -596,52 +606,11 @@ class MixpanelLexiconSchemasConfig
                       'project_id',
                     ],
                   ],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body.results`',
-                  ],
-                  'parts' => [
-                    'projects',
-                    '{project_id}',
-                    'schemas',
-                    '{id}',
-                  ],
                 ],
                 [
-                  'args' => [
-                    'params' => [
-                      [
-                        'kind' => 'param',
-                        'name' => 'entity_type',
-                        'orig' => 'entity_type',
-                        'reqd' => true,
-                        'type' => '`$STRING`',
-                      ],
-                      [
-                        'kind' => 'param',
-                        'name' => 'name',
-                        'orig' => 'name',
-                        'reqd' => true,
-                        'type' => '`$STRING`',
-                      ],
-                      [
-                        'kind' => 'param',
-                        'name' => 'project_id',
-                        'orig' => 'project_id',
-                        'reqd' => true,
-                        'type' => '`$INTEGER`',
-                      ],
-                    ],
-                  ],
                   'kind' => 'http',
                   'method' => 'DELETE',
                   'orig' => '/projects/{projectId}/schemas/{entityType}/{name}',
-                  'rename' => [
-                    'param' => [
-                      'entityType' => 'entity_type',
-                      'projectId' => 'project_id',
-                    ],
-                  ],
                   'segments' => [
                     [
                       'lit' => 'projects',
@@ -659,17 +628,6 @@ class MixpanelLexiconSchemasConfig
                       'var' => 'name',
                     ],
                   ],
-                  'select' => [
-                    'exist' => [
-                      'entity_type',
-                      'name',
-                      'project_id',
-                    ],
-                  ],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body.results`',
-                  ],
                   'parts' => [
                     'projects',
                     '{project_id}',
@@ -677,27 +635,53 @@ class MixpanelLexiconSchemasConfig
                     '{entity_type}',
                     '{name}',
                   ],
-                ],
-                [
-                  'args' => [
-                    'params' => [
-                      [
-                        'kind' => 'param',
-                        'name' => 'project_id',
-                        'orig' => 'project_id',
-                        'reqd' => true,
-                        'type' => '`$INTEGER`',
-                      ],
-                    ],
-                  ],
-                  'kind' => 'http',
-                  'method' => 'DELETE',
-                  'orig' => '/projects/{projectId}/schemas',
                   'rename' => [
                     'param' => [
+                      'entityType' => 'entity_type',
                       'projectId' => 'project_id',
                     ],
                   ],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body.results`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'entity_type',
+                        'orig' => 'entity_type',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                      [
+                        'name' => 'name',
+                        'orig' => 'name',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                      [
+                        'name' => 'project_id',
+                        'orig' => 'project_id',
+                        'type' => '`$INTEGER`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'entity_type',
+                      'name',
+                      'project_id',
+                    ],
+                  ],
+                ],
+                [
+                  'kind' => 'http',
+                  'method' => 'DELETE',
+                  'orig' => '/projects/{projectId}/schemas',
                   'segments' => [
                     [
                       'lit' => 'projects',
@@ -709,54 +693,66 @@ class MixpanelLexiconSchemasConfig
                       'lit' => 'schemas',
                     ],
                   ],
-                  'select' => [
-                    'exist' => [
-                      'project_id',
+                  'parts' => [
+                    'projects',
+                    '{project_id}',
+                    'schemas',
+                  ],
+                  'rename' => [
+                    'param' => [
+                      'projectId' => 'project_id',
                     ],
                   ],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.results`',
                   ],
-                  'parts' => [
-                    'projects',
-                    '{project_id}',
-                    'schemas',
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'project_id',
+                        'orig' => 'project_id',
+                        'type' => '`$INTEGER`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'project_id',
+                    ],
                   ],
                 ],
               ],
             ],
           ],
           'relations' => [
-            'ancestors' => [
-              [
-                'project',
-              ],
-              [
-                'project',
-                'schema',
-              ],
-            ],
+            'ancestors' => [],
           ],
         ],
         'upload_schema' => [
           'fields' => [
             [
               'name' => 'description',
-              'short' => 'The entity description',
+              'title' => 'Description',
               'type' => '`$STRING`',
+              'short' => 'The entity description',
             ],
             [
               'name' => 'metadata',
+              'title' => 'Metadata',
               'type' => '`$OBJECT`',
             ],
             [
               'name' => 'properties',
-              'short' => 'The list of properties that should be included on an instance of this entity',
+              'title' => 'Properties',
               'type' => '`$OBJECT`',
+              'short' => 'The list of properties that should be included on an instance of this entity',
             ],
             [
               'name' => 'status',
+              'title' => 'Status',
               'type' => '`$STRING`',
             ],
           ],
@@ -767,40 +763,9 @@ class MixpanelLexiconSchemasConfig
               'name' => 'create',
               'points' => [
                 [
-                  'args' => [
-                    'params' => [
-                      [
-                        'kind' => 'param',
-                        'name' => 'entity_type',
-                        'orig' => 'entity_type',
-                        'reqd' => true,
-                        'type' => '`$STRING`',
-                      ],
-                      [
-                        'kind' => 'param',
-                        'name' => 'name',
-                        'orig' => 'name',
-                        'reqd' => true,
-                        'type' => '`$STRING`',
-                      ],
-                      [
-                        'kind' => 'param',
-                        'name' => 'project_id',
-                        'orig' => 'project_id',
-                        'reqd' => true,
-                        'type' => '`$INTEGER`',
-                      ],
-                    ],
-                  ],
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/projects/{projectId}/schemas/{entityType}/{name}',
-                  'rename' => [
-                    'param' => [
-                      'entityType' => 'entity_type',
-                      'projectId' => 'project_id',
-                    ],
-                  ],
                   'segments' => [
                     [
                       'lit' => 'projects',
@@ -818,23 +783,54 @@ class MixpanelLexiconSchemasConfig
                       'var' => 'name',
                     ],
                   ],
-                  'select' => [
-                    'exist' => [
-                      'entity_type',
-                      'name',
-                      'project_id',
-                    ],
-                  ],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
                   'parts' => [
                     'projects',
                     '{project_id}',
                     'schemas',
                     '{entity_type}',
                     '{name}',
+                  ],
+                  'rename' => [
+                    'param' => [
+                      'entityType' => 'entity_type',
+                      'projectId' => 'project_id',
+                    ],
+                  ],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'entity_type',
+                        'orig' => 'entity_type',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                      [
+                        'name' => 'name',
+                        'orig' => 'name',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                      [
+                        'name' => 'project_id',
+                        'orig' => 'project_id',
+                        'type' => '`$INTEGER`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'entity_type',
+                      'name',
+                      'project_id',
+                    ],
                   ],
                 ],
               ],
@@ -843,8 +839,7 @@ class MixpanelLexiconSchemasConfig
           'relations' => [
             'ancestors' => [
               [
-                'project',
-                'schema',
+                '$.main.kit.entity.schema',
               ],
             ],
           ],

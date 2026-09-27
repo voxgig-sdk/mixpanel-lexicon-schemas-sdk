@@ -11,8 +11,6 @@ export interface BatchUploadSchemaCreateData {
     entries: any[];
     truncate?: boolean;
 }
-export interface Project {
-}
 export interface Schema {
     description?: string;
     entityType: string;
